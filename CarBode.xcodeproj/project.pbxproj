@@ -1,0 +1,603 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		090911C1234B3BAF0083AC42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090911C0234B3BAF0083AC42 /* AppDelegate.swift */; };
+		090911C3234B3BAF0083AC42 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090911C2234B3BAF0083AC42 /* SceneDelegate.swift */; };
+		090911C5234B3BAF0083AC42 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090911C4234B3BAF0083AC42 /* ContentView.swift */; };
+		090911C7234B3BB00083AC42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 090911C6234B3BB00083AC42 /* Assets.xcassets */; };
+		090911CA234B3BB00083AC42 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 090911C9234B3BB00083AC42 /* Preview Assets.xcassets */; };
+		090911CD234B3BB00083AC42 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 090911CB234B3BB00083AC42 /* LaunchScreen.storyboard */; };
+		090911D8234B3BB00083AC42 /* CarBodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090911D7234B3BB00083AC42 /* CarBodeTests.swift */; };
+		090911E3234B3BB00083AC42 /* CarBodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090911E2234B3BB00083AC42 /* CarBodeUITests.swift */; };
+		090911F1234B3BEF0083AC42 /* CarBode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090911F0234B3BEF0083AC42 /* CarBode.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		090911D4234B3BB00083AC42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 090911B5234B3BAF0083AC42 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 090911BC234B3BAF0083AC42;
+			remoteInfo = CarBode;
+		};
+		090911DF234B3BB00083AC42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 090911B5234B3BAF0083AC42 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 090911BC234B3BAF0083AC42;
+			remoteInfo = CarBode;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		090911BD234B3BAF0083AC42 /* CarBode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarBode.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		090911C0234B3BAF0083AC42 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		090911C2234B3BAF0083AC42 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		090911C4234B3BAF0083AC42 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		090911C6234B3BB00083AC42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		090911C9234B3BB00083AC42 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		090911CC234B3BB00083AC42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		090911CE234B3BB00083AC42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		090911D3234B3BB00083AC42 /* CarBodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarBodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		090911D7234B3BB00083AC42 /* CarBodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarBodeTests.swift; sourceTree = "<group>"; };
+		090911D9234B3BB00083AC42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		090911DE234B3BB00083AC42 /* CarBodeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarBodeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		090911E2234B3BB00083AC42 /* CarBodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarBodeUITests.swift; sourceTree = "<group>"; };
+		090911E4234B3BB00083AC42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		090911F0234B3BEF0083AC42 /* CarBode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarBode.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		090911BA234B3BAF0083AC42 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		090911D0234B3BB00083AC42 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		090911DB234B3BB00083AC42 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		090911B4234B3BAF0083AC42 = {
+			isa = PBXGroup;
+			children = (
+				090911BF234B3BAF0083AC42 /* CarBode */,
+				090911D6234B3BB00083AC42 /* CarBodeTests */,
+				090911E1234B3BB00083AC42 /* CarBodeUITests */,
+				090911BE234B3BAF0083AC42 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		090911BE234B3BAF0083AC42 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				090911BD234B3BAF0083AC42 /* CarBode.app */,
+				090911D3234B3BB00083AC42 /* CarBodeTests.xctest */,
+				090911DE234B3BB00083AC42 /* CarBodeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		090911BF234B3BAF0083AC42 /* CarBode */ = {
+			isa = PBXGroup;
+			children = (
+				090911F0234B3BEF0083AC42 /* CarBode.swift */,
+				090911C0234B3BAF0083AC42 /* AppDelegate.swift */,
+				090911C2234B3BAF0083AC42 /* SceneDelegate.swift */,
+				090911C4234B3BAF0083AC42 /* ContentView.swift */,
+				090911C6234B3BB00083AC42 /* Assets.xcassets */,
+				090911CB234B3BB00083AC42 /* LaunchScreen.storyboard */,
+				090911CE234B3BB00083AC42 /* Info.plist */,
+				090911C8234B3BB00083AC42 /* Preview Content */,
+			);
+			path = CarBode;
+			sourceTree = "<group>";
+		};
+		090911C8234B3BB00083AC42 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				090911C9234B3BB00083AC42 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		090911D6234B3BB00083AC42 /* CarBodeTests */ = {
+			isa = PBXGroup;
+			children = (
+				090911D7234B3BB00083AC42 /* CarBodeTests.swift */,
+				090911D9234B3BB00083AC42 /* Info.plist */,
+			);
+			path = CarBodeTests;
+			sourceTree = "<group>";
+		};
+		090911E1234B3BB00083AC42 /* CarBodeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				090911E2234B3BB00083AC42 /* CarBodeUITests.swift */,
+				090911E4234B3BB00083AC42 /* Info.plist */,
+			);
+			path = CarBodeUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		090911BC234B3BAF0083AC42 /* CarBode */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 090911E7234B3BB00083AC42 /* Build configuration list for PBXNativeTarget "CarBode" */;
+			buildPhases = (
+				090911B9234B3BAF0083AC42 /* Sources */,
+				090911BA234B3BAF0083AC42 /* Frameworks */,
+				090911BB234B3BAF0083AC42 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CarBode;
+			productName = CarBode;
+			productReference = 090911BD234B3BAF0083AC42 /* CarBode.app */;
+			productType = "com.apple.product-type.application";
+		};
+		090911D2234B3BB00083AC42 /* CarBodeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 090911EA234B3BB00083AC42 /* Build configuration list for PBXNativeTarget "CarBodeTests" */;
+			buildPhases = (
+				090911CF234B3BB00083AC42 /* Sources */,
+				090911D0234B3BB00083AC42 /* Frameworks */,
+				090911D1234B3BB00083AC42 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				090911D5234B3BB00083AC42 /* PBXTargetDependency */,
+			);
+			name = CarBodeTests;
+			productName = CarBodeTests;
+			productReference = 090911D3234B3BB00083AC42 /* CarBodeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		090911DD234B3BB00083AC42 /* CarBodeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 090911ED234B3BB00083AC42 /* Build configuration list for PBXNativeTarget "CarBodeUITests" */;
+			buildPhases = (
+				090911DA234B3BB00083AC42 /* Sources */,
+				090911DB234B3BB00083AC42 /* Frameworks */,
+				090911DC234B3BB00083AC42 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				090911E0234B3BB00083AC42 /* PBXTargetDependency */,
+			);
+			name = CarBodeUITests;
+			productName = CarBodeUITests;
+			productReference = 090911DE234B3BB00083AC42 /* CarBodeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		090911B5234B3BAF0083AC42 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+				ORGANIZATIONNAME = PAM;
+				TargetAttributes = {
+					090911BC234B3BAF0083AC42 = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					090911D2234B3BB00083AC42 = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = 090911BC234B3BAF0083AC42;
+					};
+					090911DD234B3BB00083AC42 = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = 090911BC234B3BAF0083AC42;
+					};
+				};
+			};
+			buildConfigurationList = 090911B8234B3BAF0083AC42 /* Build configuration list for PBXProject "CarBode" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 090911B4234B3BAF0083AC42;
+			productRefGroup = 090911BE234B3BAF0083AC42 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				090911BC234B3BAF0083AC42 /* CarBode */,
+				090911D2234B3BB00083AC42 /* CarBodeTests */,
+				090911DD234B3BB00083AC42 /* CarBodeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		090911BB234B3BAF0083AC42 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				090911CD234B3BB00083AC42 /* LaunchScreen.storyboard in Resources */,
+				090911CA234B3BB00083AC42 /* Preview Assets.xcassets in Resources */,
+				090911C7234B3BB00083AC42 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		090911D1234B3BB00083AC42 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		090911DC234B3BB00083AC42 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		090911B9234B3BAF0083AC42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				090911F1234B3BEF0083AC42 /* CarBode.swift in Sources */,
+				090911C1234B3BAF0083AC42 /* AppDelegate.swift in Sources */,
+				090911C3234B3BAF0083AC42 /* SceneDelegate.swift in Sources */,
+				090911C5234B3BAF0083AC42 /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		090911CF234B3BB00083AC42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				090911D8234B3BB00083AC42 /* CarBodeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		090911DA234B3BB00083AC42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				090911E3234B3BB00083AC42 /* CarBodeUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		090911D5234B3BB00083AC42 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 090911BC234B3BAF0083AC42 /* CarBode */;
+			targetProxy = 090911D4234B3BB00083AC42 /* PBXContainerItemProxy */;
+		};
+		090911E0234B3BB00083AC42 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 090911BC234B3BAF0083AC42 /* CarBode */;
+			targetProxy = 090911DF234B3BB00083AC42 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		090911CB234B3BB00083AC42 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				090911CC234B3BB00083AC42 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		090911E5234B3BB00083AC42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		090911E6234B3BB00083AC42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		090911E8234B3BB00083AC42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"CarBode/Preview Content\"";
+				DEVELOPMENT_TEAM = 5PN9LL8N5M;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = CarBode/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushandmotion.pam.CarBode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		090911E9234B3BB00083AC42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"CarBode/Preview Content\"";
+				DEVELOPMENT_TEAM = 5PN9LL8N5M;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = CarBode/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushandmotion.pam.CarBode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		090911EB234B3BB00083AC42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5PN9LL8N5M;
+				INFOPLIST_FILE = CarBodeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushandmotion.pam.CarBodeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CarBode.app/CarBode";
+			};
+			name = Debug;
+		};
+		090911EC234B3BB00083AC42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5PN9LL8N5M;
+				INFOPLIST_FILE = CarBodeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushandmotion.pam.CarBodeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CarBode.app/CarBode";
+			};
+			name = Release;
+		};
+		090911EE234B3BB00083AC42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5PN9LL8N5M;
+				INFOPLIST_FILE = CarBodeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushandmotion.pam.CarBodeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CarBode;
+			};
+			name = Debug;
+		};
+		090911EF234B3BB00083AC42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5PN9LL8N5M;
+				INFOPLIST_FILE = CarBodeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushandmotion.pam.CarBodeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CarBode;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		090911B8234B3BAF0083AC42 /* Build configuration list for PBXProject "CarBode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				090911E5234B3BB00083AC42 /* Debug */,
+				090911E6234B3BB00083AC42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		090911E7234B3BB00083AC42 /* Build configuration list for PBXNativeTarget "CarBode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				090911E8234B3BB00083AC42 /* Debug */,
+				090911E9234B3BB00083AC42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		090911EA234B3BB00083AC42 /* Build configuration list for PBXNativeTarget "CarBodeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				090911EB234B3BB00083AC42 /* Debug */,
+				090911EC234B3BB00083AC42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		090911ED234B3BB00083AC42 /* Build configuration list for PBXNativeTarget "CarBodeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				090911EE234B3BB00083AC42 /* Debug */,
+				090911EF234B3BB00083AC42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 090911B5234B3BAF0083AC42 /* Project object */;
+}
