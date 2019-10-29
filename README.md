@@ -3,7 +3,7 @@
 # CarBode-Barcode-Scanner-For-SwiftUI
 CarBode : Free &amp; Opensource barcode scanner for SwiftUI
 
-![SwiftUI QRCode Scanner](https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/blob/master/logo/preview.png?raw=true)
+![SwiftUI QRCode Scanner](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/preview.png)
 
 
 # How to use
