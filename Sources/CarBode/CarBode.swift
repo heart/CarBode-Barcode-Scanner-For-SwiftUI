@@ -110,8 +110,3 @@ class Delegate: NSObject, AVCaptureMetadataOutputObjectsDelegate {
     }
 }
 
-struct CarBode_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
