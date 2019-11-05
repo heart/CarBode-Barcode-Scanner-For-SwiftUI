@@ -32,7 +32,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack{
-            CarBode(supportBarcode: [.qr]) //Set type of barcode you want to scan
+        CarBode(supportBarcode: [.qr, .code128]) //Set type of barcode you want to scan
                     .interval(delay: 5.0) //Event will trigger every 5 seconds
                        .found{
                             //Your..Code..Here
@@ -42,6 +42,9 @@ struct ContentView: View {
     }
 }
 ```
+
+## Barcode Types Support
+Read here [https://developer.apple.com/documentation/avfoundation/avmetadataobject/objecttype](https://developer.apple.com/documentation/avfoundation/avmetadataobject/objecttype) 
 
 # Contributing
 
