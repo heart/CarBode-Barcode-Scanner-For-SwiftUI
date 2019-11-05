@@ -18,12 +18,12 @@ public struct CarBode: UIViewRepresentable {
     let delegate = Delegate()
     let session = AVCaptureSession()
 
-    func interval(delay:Double)-> CarBode {
+    public func interval(delay:Double)-> CarBode {
         delegate.scanInterval = delay
         return self
     }
 
-    func found(r: @escaping (String) -> Void) -> CarBode {
+    public func found(r: @escaping (String) -> Void) -> CarBode {
         delegate.onResult = r
         return self
     }
