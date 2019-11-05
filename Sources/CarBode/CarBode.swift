@@ -9,7 +9,7 @@
 import SwiftUI
 import AVFoundation
 
-struct CarBode: UIViewRepresentable {
+public struct CarBode: UIViewRepresentable {
 
     var supportBarcode: [AVMetadataObject.ObjectType]
 
