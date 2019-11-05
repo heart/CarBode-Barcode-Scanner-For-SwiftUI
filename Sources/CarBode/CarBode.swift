@@ -17,7 +17,11 @@ public struct CarBode: UIViewRepresentable {
 
     let delegate = Delegate()
     let session = AVCaptureSession()
-
+    
+    public init(supportBarcode: [AVMetadataObject.ObjectType]){
+        self.supportBarcode = supportBarcode
+    }
+    
     public func interval(delay:Double)-> CarBode {
         delegate.scanInterval = delay
         return self
