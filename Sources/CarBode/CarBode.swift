@@ -13,7 +13,7 @@ public struct CarBode: UIViewRepresentable {
 
     var supportBarcode: [AVMetadataObject.ObjectType]
 
-    typealias UIViewType = CameraPreview
+    public typealias UIViewType = CameraPreview
 
     let delegate = Delegate()
     let session = AVCaptureSession()
@@ -56,11 +56,11 @@ public struct CarBode: UIViewRepresentable {
         }
     }
 
-    func makeUIView(context: UIViewRepresentableContext<CarBode>) -> CarBode.UIViewType {
+    public func makeUIView(context: UIViewRepresentableContext<CarBode>) -> CarBode.UIViewType {
         return CameraPreview(frame: .zero)
     }
 
-    func updateUIView(_ uiView: CameraPreview, context: UIViewRepresentableContext<CarBode>) {
+    public func updateUIView(_ uiView: CameraPreview, context: UIViewRepresentableContext<CarBode>) {
         uiView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         uiView.setContentHuggingPriority(.defaultLow, for: .horizontal)
 
@@ -81,9 +81,9 @@ public struct CarBode: UIViewRepresentable {
 
 }
 
-class CameraPreview: UIView {
+public class CameraPreview: UIView {
     var previewLayer: AVCaptureVideoPreviewLayer?
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         previewLayer?.frame = self.bounds
     }
