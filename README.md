@@ -1,7 +1,7 @@
+![CarBode](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/logo.png)
+
 # CarBode-Barcode-Scanner-For-SwiftUI
 CarBode : Free &amp; Opensource barcode scanner for SwiftUI
-
-![CarBode](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/logo.png)
 
 ![SwiftUI QRCode Scanner](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/preview.png)
 
@@ -23,7 +23,7 @@ The preferred way of installing SwiftUIX is via the [Swift Package Manager](http
 
 ``` XML
 <key>NSCameraUsageDescription</key>
-<string>this app using camera to scan a barcode</string>
+<string>This app needs access to the camera, to be able to read barcodes.</string>
 ```
 
 ```Swift
