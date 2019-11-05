@@ -11,7 +11,7 @@ import AVFoundation
 
 public struct CarBode: UIViewRepresentable {
 
-    var supportBarcode: [AVMetadataObject.ObjectType]
+    public var supportBarcode: [AVMetadataObject.ObjectType]
 
     public typealias UIViewType = CameraPreview
 
