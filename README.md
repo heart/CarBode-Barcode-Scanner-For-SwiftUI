@@ -83,3 +83,7 @@ Read here [https://developer.apple.com/documentation/avfoundation/avmetadataobje
 # Contributing
 
 CarBode welcomes contributions in the form of GitHub issues and pull-requests.
+
+## Changelog
+    - 1.0.1 Fixed bug camera delay 10 seconds when use on modal.
+    - 1.2.0 Add feature allows to turn torch light on or off.
