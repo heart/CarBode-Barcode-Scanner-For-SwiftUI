@@ -10,17 +10,29 @@ import SwiftUI
 
 struct ModalScannerView: View {
     @State var barcodeValue = ""
+    @State var torceIsOn = false
+    
     var body: some View {
         VStack{
             Text("QRCode Scanner")
             
             Spacer()
             
+            Button(action: {
+                self.torceIsOn.toggle()
+            }) {
+                Text("Toggle Torch Light")
+            }
+            
+            Spacer()
+            
             CarBode(supportBarcode: [.qr, .code128])
             .interval(delay: 1.0)
-               .found{
+            .found{
                 self.barcodeValue = $0
-            }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 400, maxHeight: 400, alignment: .topLeading)
+            }
+            .torchLight(isOn: self.torceIsOn)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 400, maxHeight: 400, alignment: .topLeading)
             
             Spacer()
             
