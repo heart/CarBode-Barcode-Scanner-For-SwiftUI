@@ -45,7 +45,7 @@ struct ContentView: View {
 ```
 
 
-# How to ON/OFF torch light 
+# How to turn torch light on/off
 
 ```Swift
 import SwiftUI
