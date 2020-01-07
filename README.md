@@ -28,6 +28,7 @@ The preferred way of installing SwiftUIX is via the [Swift Package Manager](http
 
 ```Swift
 import SwiftUI
+import CarBode
 
 struct ContentView: View {
     var body: some View {
