@@ -11,18 +11,18 @@ import AVFoundation
 
 public struct CarBode: UIViewRepresentable {
 
-    public var supportBarcode: [AVMetadataObject.ObjectType]
-
+    public var supportBarcode: [AVMetadataObject.ObjectType]?
     public typealias UIViewType = CameraPreview
 
-    let delegate = Delegate()
-    let session = AVCaptureSession()
+    private let session = AVCaptureSession()
+    private let delegate = CarBodeCameraDelegate()
+    private let metadataOutput = AVCaptureMetadataOutput()
     
-    public init(supportBarcode: [AVMetadataObject.ObjectType]){
+    public init(supportBarcode: [AVMetadataObject.ObjectType]) {
         self.supportBarcode = supportBarcode
     }
-    
-    public func interval(delay:Double)-> CarBode {
+
+    public func interval(delay: Double) -> CarBode {
         delegate.scanInterval = delay
         return self
     }
@@ -35,11 +35,8 @@ public struct CarBode: UIViewRepresentable {
     func setupCamera(_ uiView: CameraPreview) {
         if let backCamera = AVCaptureDevice.default(for: AVMediaType.video) {
             if let input = try? AVCaptureDeviceInput(device: backCamera) {
-
-                let metadataOutput = AVCaptureMetadataOutput()
-
                 session.sessionPreset = .photo
-
+               
                 if session.canAddInput(input) {
                     session.addInput(input)
                 }
@@ -58,20 +55,24 @@ public struct CarBode: UIViewRepresentable {
                 session.startRunning()
             }
         }
+        
     }
 
     public func makeUIView(context: UIViewRepresentableContext<CarBode>) -> CarBode.UIViewType {
-        return CameraPreview(frame: .zero)
+        
+        let cameraView = CameraPreview(session: session)
+        checkCameraAuthorizationStatus(cameraView)
+        return cameraView
     }
 
-    public func updateUIView(_ uiView: CameraPreview, context: UIViewRepresentableContext<CarBode>) {
-        uiView.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        uiView.setContentHuggingPriority(.defaultLow, for: .horizontal)
-
+    public static func dismantleUIView(_ uiView: CameraPreview, coordinator: ()) {
+        uiView.session.stopRunning()
+    }
+    
+    private func checkCameraAuthorizationStatus(_ uiView: CameraPreview) {
         let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
-
         if cameraAuthorizationStatus == .authorized {
-            setupCamera(uiView)
+          setupCamera(uiView)
         } else {
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 DispatchQueue.main.sync {
@@ -81,20 +82,48 @@ public struct CarBode: UIViewRepresentable {
                 }
             }
         }
+        
+        DispatchQueue.global(qos: .background).async {
+            var isActive = true
+            while(isActive){
+                DispatchQueue.main.sync {
+                    if !self.session.isRunning {
+                        isActive = false
+                    }
+                }
+                sleep(1)
+            }
+        }
+    }
+
+    public func updateUIView(_ uiView: CameraPreview, context: UIViewRepresentableContext<CarBode>) {
+        uiView.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        uiView.setContentHuggingPriority(.defaultLow, for: .horizontal)
     }
 
 }
 
 public class CameraPreview: UIView {
     var previewLayer: AVCaptureVideoPreviewLayer?
+    var session = AVCaptureSession()
+    
+    init(session:AVCaptureSession){
+        super.init(frame: .zero)
+        self.session = session
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override public func layoutSubviews() {
         super.layoutSubviews()
         previewLayer?.frame = self.bounds
     }
 }
 
-class Delegate: NSObject, AVCaptureMetadataOutputObjectsDelegate {
-    var scanInterval:Double = 3.0
+class CarBodeCameraDelegate: NSObject, AVCaptureMetadataOutputObjectsDelegate {
+    var scanInterval: Double = 3.0
     var lastTime = Date(timeIntervalSince1970: 0)
 
     var onResult: (String) -> Void = { _ in }
