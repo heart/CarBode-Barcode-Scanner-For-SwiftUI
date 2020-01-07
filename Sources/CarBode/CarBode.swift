@@ -21,6 +21,21 @@ public struct CarBode: UIViewRepresentable {
     public init(supportBarcode: [AVMetadataObject.ObjectType]) {
         self.supportBarcode = supportBarcode
     }
+    
+    public func torchLight(isOn: Bool) -> CarBode{
+        if let backCamera = AVCaptureDevice.default(for: AVMediaType.video) {
+            if backCamera.hasTorch {
+                try? backCamera.lockForConfiguration()
+                if isOn{
+                    backCamera.torchMode = .on
+                }else{
+                    backCamera.torchMode = .off
+                }
+                backCamera.unlockForConfiguration()
+            }
+        }
+        return self
+    }
 
     public func interval(delay: Double) -> CarBode {
         delegate.scanInterval = delay

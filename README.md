@@ -44,6 +44,39 @@ struct ContentView: View {
 }
 ```
 
+
+# How to ON/OFF torch light 
+
+```Swift
+import SwiftUI
+import CarBode
+
+@State var torceIsOn = false
+
+struct ContentView: View {
+    var body: some View {
+        VStack{
+
+        Button(action: {
+            self.torceIsOn.toggle()
+        }) {
+            Text("Toggle Torch Light")
+        }
+            
+        Spacer()
+        
+        CarBode(supportBarcode: [.qr, .code128]) //Set type of barcode you want to scan
+                    .torchLight(isOn: self.torceIsOn) // Turn torch light on/off
+                    .interval(delay: 5.0) //Event will trigger every 5 seconds
+                       .found{
+                            //Your..Code..Here
+                            print($0)
+                      }
+        }
+    }
+}
+```
+
 ## Barcode Types Support
 Read here [https://developer.apple.com/documentation/avfoundation/avmetadataobject/objecttype](https://developer.apple.com/documentation/avfoundation/avmetadataobject/objecttype) 
 
