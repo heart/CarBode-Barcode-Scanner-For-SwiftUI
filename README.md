@@ -77,6 +77,26 @@ struct ContentView: View {
 }
 ```
 
+# Test on iOS simulator
+
+The iOS simulator doesn't support the camera yet
+but you can set a mock barcode for iOS simulator.
+
+No need to remove the mock barcode 
+it will only use for iOS simulator.
+
+```Swift
+ CarBode(supportBarcode: [.qr, .code128])
+            .interval(delay: 1.0)
+            .found{
+                print($0)
+            }
+            .simulator(mockBarCode: "MOCK BARCODE DATA 1234567890")
+```
+
+
+
+
 ## Barcode Types Support
 Read here [https://developer.apple.com/documentation/avfoundation/avmetadataobject/objecttype](https://developer.apple.com/documentation/avfoundation/avmetadataobject/objecttype) 
 
@@ -87,3 +107,4 @@ CarBode welcomes contributions in the form of GitHub issues and pull-requests.
 ## Changelog
     - 1.0.1 Fixed bug camera delay 10 seconds when use on modal.
     - 1.2.0 Add feature allows to turn torch light on or off.
+    - 1.3.0 You can set a mock barcode when running with an iOS simulator.

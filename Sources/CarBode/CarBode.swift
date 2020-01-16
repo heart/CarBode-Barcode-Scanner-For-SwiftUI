@@ -17,18 +17,18 @@ public struct CarBode: UIViewRepresentable {
     private let session = AVCaptureSession()
     private let delegate = CarBodeCameraDelegate()
     private let metadataOutput = AVCaptureMetadataOutput()
-    
+
     public init(supportBarcode: [AVMetadataObject.ObjectType]) {
         self.supportBarcode = supportBarcode
     }
-    
-    public func torchLight(isOn: Bool) -> CarBode{
+
+    public func torchLight(isOn: Bool) -> CarBode {
         if let backCamera = AVCaptureDevice.default(for: AVMediaType.video) {
             if backCamera.hasTorch {
                 try? backCamera.lockForConfiguration()
-                if isOn{
+                if isOn {
                     backCamera.torchMode = .on
-                }else{
+                } else {
                     backCamera.torchMode = .off
                 }
                 backCamera.unlockForConfiguration()
@@ -47,11 +47,16 @@ public struct CarBode: UIViewRepresentable {
         return self
     }
 
+    public func simulator(mockBarCode:String)-> CarBode{
+        delegate.mockData = mockBarCode
+        return self
+    }
+    
     func setupCamera(_ uiView: CameraPreview) {
         if let backCamera = AVCaptureDevice.default(for: AVMediaType.video) {
             if let input = try? AVCaptureDeviceInput(device: backCamera) {
                 session.sessionPreset = .photo
-               
+
                 if session.canAddInput(input) {
                     session.addInput(input)
                 }
@@ -70,45 +75,51 @@ public struct CarBode: UIViewRepresentable {
                 session.startRunning()
             }
         }
-        
+
     }
 
     public func makeUIView(context: UIViewRepresentableContext<CarBode>) -> CarBode.UIViewType {
-        
         let cameraView = CameraPreview(session: session)
-        checkCameraAuthorizationStatus(cameraView)
+        
+        #if targetEnvironment(simulator)
+            cameraView.createSimulatorView(delegate: self.delegate)
+        #else
+            checkCameraAuthorizationStatus(cameraView)
+        #endif
+        
         return cameraView
     }
-
+    
     public static func dismantleUIView(_ uiView: CameraPreview, coordinator: ()) {
         uiView.session.stopRunning()
     }
-    
+
     private func checkCameraAuthorizationStatus(_ uiView: CameraPreview) {
-        let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
-        if cameraAuthorizationStatus == .authorized {
-          setupCamera(uiView)
-        } else {
-            AVCaptureDevice.requestAccess(for: .video) { granted in
-                DispatchQueue.main.sync {
-                    if granted {
-                        self.setupCamera(uiView)
+            let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+            if cameraAuthorizationStatus == .authorized {
+                setupCamera(uiView)
+            } else {
+                AVCaptureDevice.requestAccess(for: .video) { granted in
+                    DispatchQueue.main.sync {
+                        if granted {
+                            self.setupCamera(uiView)
+                        }
                     }
                 }
             }
-        }
-        
-        DispatchQueue.global(qos: .background).async {
-            var isActive = true
-            while(isActive){
-                DispatchQueue.main.sync {
-                    if !self.session.isRunning {
-                        isActive = false
+
+            DispatchQueue.global(qos: .background).async {
+                var isActive = true
+                while(isActive) {
+                    DispatchQueue.main.sync {
+                        if !self.session.isRunning {
+                            isActive = false
+                        }
                     }
+                    sleep(1)
                 }
-                sleep(1)
             }
-        }
+       
     }
 
     public func updateUIView(_ uiView: CameraPreview, context: UIViewRepresentableContext<CarBode>) {
@@ -121,19 +132,44 @@ public struct CarBode: UIViewRepresentable {
 public class CameraPreview: UIView {
     var previewLayer: AVCaptureVideoPreviewLayer?
     var session = AVCaptureSession()
+    private var label:UILabel?
+    var delegate: CarBodeCameraDelegate?
     
-    init(session:AVCaptureSession){
+    init(session: AVCaptureSession) {
         super.init(frame: .zero)
         self.session = session
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func createSimulatorView(delegate: CarBodeCameraDelegate){
+        self.delegate = delegate
+        self.backgroundColor = UIColor.black
+        label = UILabel(frame: self.bounds)
+        label?.numberOfLines = 4
+        label?.text = "CarBode Scanner View\nSimulator mode\n\nClick here to simulate scan"
+        label?.textColor = UIColor.white
+        label?.textAlignment = .center
+        if let label = label {
+            addSubview(label)
+        }
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(onClick))
+        self.addGestureRecognizer(gesture)
+    }
+    
+    @objc func onClick(){
+        delegate?.onSimulateScanning()
+    }
+    
     override public func layoutSubviews() {
         super.layoutSubviews()
-        previewLayer?.frame = self.bounds
+        #if targetEnvironment(simulator)
+            label?.frame = self.bounds
+        #else
+            previewLayer?.frame = self.bounds
+        #endif
     }
 }
 
@@ -142,19 +178,26 @@ class CarBodeCameraDelegate: NSObject, AVCaptureMetadataOutputObjectsDelegate {
     var lastTime = Date(timeIntervalSince1970: 0)
 
     var onResult: (String) -> Void = { _ in }
-
+    var mockData:String?
+    
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
-            let now = Date()
-            if now.timeIntervalSince(lastTime) >= scanInterval {
-                lastTime = now
-                self.onResult(stringValue)
-            }
+            foundBarcode(stringValue)
         }
-
+    }
+    
+    @objc func onSimulateScanning(){
+       foundBarcode(mockData ?? "You're not set mock data yet.")
+    }
+    
+    func foundBarcode(_ stringValue:String){
+        let now = Date()
+        if now.timeIntervalSince(lastTime) >= scanInterval {
+            lastTime = now
+            self.onResult(stringValue)
+        }
     }
 }
 
