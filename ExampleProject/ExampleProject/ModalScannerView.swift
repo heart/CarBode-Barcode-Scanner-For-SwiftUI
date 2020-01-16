@@ -31,6 +31,7 @@ struct ModalScannerView: View {
             .found{
                 self.barcodeValue = $0
             }
+            .simulator(mockBarCode: "MOCK BARCODE DATA 1234567890")
             .torchLight(isOn: self.torceIsOn)
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 400, maxHeight: 400, alignment: .topLeading)
             
