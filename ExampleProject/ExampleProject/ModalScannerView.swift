@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-
 struct ModalScannerView: View {
     @State var barcodeValue = ""
     @State var torceIsOn = false
@@ -26,7 +25,7 @@ struct ModalScannerView: View {
             
             Spacer()
             
-            CarBode(supportBarcode: [.qr, .code128])
+            CBScanner(supportBarcode: [.qr, .code128])
             .interval(delay: 1.0)
             .found{
                 self.barcodeValue = $0

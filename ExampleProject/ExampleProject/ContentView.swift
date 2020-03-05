@@ -11,14 +11,32 @@ import SwiftUI
 struct ContentView: View {
     
     @State var showingScanner = false
+    @State var showingGenerator = false
     
     var body: some View {
-        Button(action: {
-            self.showingScanner.toggle()
-        }) {
-            Text("Open Scanner")
-        }.sheet(isPresented: $showingScanner) {
-            ModalScannerView()
+        VStack{
+            
+            Spacer()
+            
+            Button(action: {
+                self.showingScanner.toggle()
+            }) {
+                Text("Open Scanner")
+            }.sheet(isPresented: $showingScanner) {
+                ModalScannerView()
+            }
+            
+            Spacer()
+            
+            Button(action: {
+                self.showingGenerator.toggle()
+            }) {
+                Text("Open Barcode Generator")
+            }.sheet(isPresented: $showingGenerator) {
+                ModalBarcodeGenerator()
+            }
+            
+            Spacer()
         }
     }
 }
