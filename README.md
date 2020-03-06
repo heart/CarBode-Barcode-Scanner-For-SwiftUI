@@ -3,6 +3,8 @@
 # CarBode 
 ## Free and Opensource Barcode scanner &amp; Barcode generator for swiftUI
 
+![Supported Barcode](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/barcode_type.jpg)
+
 ## index
 - [Installation](#installation)
 - [Example project](#example-project)
