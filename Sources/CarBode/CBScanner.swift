@@ -17,7 +17,7 @@ public struct CBScanner: UIViewRepresentable {
     private let session = AVCaptureSession()
     private let delegate = CarBodeCameraDelegate()
     private let metadataOutput = AVCaptureMetadataOutput()
-
+    
     public init(supportBarcode: [AVMetadataObject.ObjectType]) {
         self.supportBarcode = supportBarcode
     }
@@ -62,6 +62,7 @@ public struct CBScanner: UIViewRepresentable {
                 }
                 if session.canAddOutput(metadataOutput) {
                     session.addOutput(metadataOutput)
+                    
                     metadataOutput.metadataObjectTypes = supportBarcode
                     metadataOutput.setMetadataObjectsDelegate(delegate, queue: DispatchQueue.main)
                 }
@@ -80,7 +81,7 @@ public struct CBScanner: UIViewRepresentable {
 
     public func makeUIView(context: UIViewRepresentableContext<CBScanner>) -> CBScanner.UIViewType {
         let cameraView = CameraPreview(session: session)
-        
+
         #if targetEnvironment(simulator)
             cameraView.createSimulatorView(delegate: self.delegate)
         #else
@@ -107,19 +108,18 @@ public struct CBScanner: UIViewRepresentable {
                     }
                 }
             }
-
+       
             DispatchQueue.global(qos: .background).async {
                 var isActive = true
                 while(isActive) {
                     DispatchQueue.main.sync {
-                        if !self.session.isRunning {
+                        if !self.session.isInterrupted && !self.session.isRunning {
                             isActive = false
                         }
                     }
                     sleep(1)
                 }
             }
-       
     }
 
     public func updateUIView(_ uiView: CameraPreview, context: UIViewRepresentableContext<CBScanner>) {
@@ -182,6 +182,7 @@ class CarBodeCameraDelegate: NSObject, AVCaptureMetadataOutputObjectsDelegate {
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if let metadataObject = metadataObjects.first {
+            
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
             foundBarcode(stringValue)

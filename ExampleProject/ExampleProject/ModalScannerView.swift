@@ -28,6 +28,7 @@ struct ModalScannerView: View {
             CBScanner(supportBarcode: [.qr, .code128])
             .interval(delay: 1.0)
             .found{
+                print($0)
                 self.barcodeValue = $0
             }
             .simulator(mockBarCode: "MOCK BARCODE DATA 1234567890")
