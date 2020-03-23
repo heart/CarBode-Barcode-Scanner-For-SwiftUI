@@ -26,7 +26,7 @@ The preferred way of installing SwiftUIX is via the [Swift Package Manager](http
 
 1. In Xcode, open your project and navigate to **File** → **Swift Packages** → **Add Package Dependency...**
 2. Paste the repository URL (`https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI`) and click **Next**.
-3. For **Rules**, select **Branch** (with branch set to `1.4.1` ).
+3. For **Rules**, select **Branch** (with branch set to `1.4.2` ).
 4. Click **Finish**.
 
 # Example project
