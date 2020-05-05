@@ -98,9 +98,7 @@ struct ContentView: View {
 The iOS simulator doesn't support the camera yet
 but you can set a mock barcode for iOS simulator.
 
-No need to remove the mock barcode 
-it will only use for iOS simulator.
-
+No need to remove the mock barcode from the production app it will only use for iOS simulator.
 ```Swift
  CBScanner(supportBarcode: [.qr, .code128])
             .interval(delay: 1.0)
