@@ -27,9 +27,15 @@ public struct CBBarcodeView: UIViewRepresentable {
 
     public typealias UIViewType = BarcodeView
 
-    @Binding var data: String
-    @Binding var barcodeType: BarcodeType
-    @Binding var orientation: Orientation
+    @Binding public var data: String
+    @Binding public var barcodeType: BarcodeType
+    @Binding public var orientation: Orientation
+    
+//    public init(data: String,
+//                barcodeType: $barcodeType,
+//                orientation: $rotate) {
+//        self.supportBarcode = supportBarcode
+//    }
 
     public func makeUIView(context: UIViewRepresentableContext<CBBarcodeView>) -> CBBarcodeView.UIViewType {
         return BarcodeView()
