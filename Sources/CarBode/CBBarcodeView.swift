@@ -31,11 +31,15 @@ public struct CBBarcodeView: UIViewRepresentable {
     @Binding public var barcodeType: BarcodeType
     @Binding public var orientation: Orientation
     
-//    public init(data: String,
-//                barcodeType: $barcodeType,
-//                orientation: $rotate) {
-//        self.supportBarcode = supportBarcode
-//    }
+    public init(data: String,
+                barcodeType: BarcodeType,
+                orientation: Orientation) {
+        
+        self.data = data
+        self.barcodeType = barcodeType
+        self.orientation = orientation
+        
+    }
 
     public func makeUIView(context: UIViewRepresentableContext<CBBarcodeView>) -> CBBarcodeView.UIViewType {
         return BarcodeView()
