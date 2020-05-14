@@ -47,7 +47,6 @@ public struct CBBarcodeView: UIViewRepresentable {
     public func updateUIView(_ uiView: BarcodeView, context: UIViewRepresentableContext<CBBarcodeView>) {
         uiView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         uiView.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        print("updateUIView")
         uiView.gen(data: data, barcodeType: barcodeType)
         uiView.rotate(orientation: orientation)
     }
@@ -57,7 +56,7 @@ public struct CBBarcodeView: UIViewRepresentable {
 public class BarcodeView: UIImageView {
 
     func gen(data: String?, barcodeType: CBBarcodeView.BarcodeType) {
-
+        print("Frame = \(frame)")
         guard let string = data, !string.isEmpty else {
             self.image = nil
             return
