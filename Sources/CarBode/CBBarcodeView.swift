@@ -54,13 +54,19 @@ public struct CBBarcodeView: UIViewRepresentable {
 }
 
 public class BarcodeView: UIImageView {
-
+    
+    private var data:String?
+    private var barcodeType: CBBarcodeView.BarcodeType?
+    
     func gen(data: String?, barcodeType: CBBarcodeView.BarcodeType) {
         print("Frame = \(frame)")
         guard let string = data, !string.isEmpty else {
             self.image = nil
             return
         }
+        
+        self.data = data
+        self.barcodeType = barcodeType
 
         let data = string.data(using: String.Encoding.ascii)
         let filter = CIFilter(name: barcodeType.rawValue)!
@@ -75,6 +81,12 @@ public class BarcodeView: UIImageView {
 
         let newImage = UIImage(ciImage: scaledImage!)
         self.image = newImage
+    }
+    
+    override public func layoutSubviews() {
+        super.layoutSubviews()
+        guard let barcodeType = barcodeType else{return}
+        gen(data: data, barcodeType: barcodeType)
     }
 
     private func radians (_ degrees: Float) -> Float {
