@@ -10,7 +10,9 @@ import SwiftUI
 
 
 public struct CBBarcodeView: UIViewRepresentable {
-
+    
+    public typealias UIViewType = BarcodeView
+    
     public enum BarcodeType: String {
         case qrCode = "CIQRCodeGenerator"
         case barcode128 = "CICode128BarcodeGenerator"
@@ -25,20 +27,17 @@ public struct CBBarcodeView: UIViewRepresentable {
         case left
     }
 
-    public typealias UIViewType = BarcodeView
-
     @Binding public var data: String
     @Binding public var barcodeType: BarcodeType
     @Binding public var orientation: Orientation
-    
-    public init(data: String,
-                barcodeType: BarcodeType,
-                orientation: Orientation) {
-        
-        self.data = data
-        self.barcodeType = barcodeType
-        self.orientation = orientation
-        
+
+    public init(data: Binding<String>,
+        barcodeType: Binding<BarcodeType>,
+        orientation: Binding<Orientation>) {
+
+        self._data = data
+        self._barcodeType = barcodeType
+        self._orientation = orientation
     }
 
     public func makeUIView(context: UIViewRepresentableContext<CBBarcodeView>) -> CBBarcodeView.UIViewType {
