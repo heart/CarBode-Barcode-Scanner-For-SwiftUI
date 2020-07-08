@@ -10,7 +10,7 @@
 - [Example project](#example-project)
 - [How to use scanner view](#how-to-use-scanner-view)
     - [Add camera usage description to `info.plist`](#add-camera-usage-description-to-your-infoplist)
-    - [Torce light on/off](#how-to-turn-torch-light-onoff)
+    - [torch light on/off](#how-to-turn-torch-light-onoff)
     - [Test on iOS simulator](#test-on-ios-simulator)
     - [Barcode types support](#barcode-types-support)
 - [How to use barcode generator view](#how-to-use-barcode-generator-view)
@@ -67,14 +67,14 @@ struct ContentView: View {
 import SwiftUI
 import CarBode
 
-@State var torceIsOn = false
+@State var torchIsOn = false
 
 struct ContentView: View {
     var body: some View {
         VStack{
 
         Button(action: {
-            self.torceIsOn.toggle()
+            self.torchIsOn.toggle()
         }) {
             Text("Toggle Torch Light")
         }
@@ -82,7 +82,7 @@ struct ContentView: View {
         Spacer()
         
         CBScanner(supportBarcode: [.qr, .code128]) //Set type of barcode you want to scan
-                    .torchLight(isOn: self.torceIsOn) // Turn torch light on/off
+                    .torchLight(isOn: self.torchIsOn) // Turn torch light on/off
                     .interval(delay: 5.0) //Event will trigger every 5 seconds
                        .found{
                             //Your..Code..Here
