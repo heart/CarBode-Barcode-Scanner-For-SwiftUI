@@ -47,7 +47,7 @@ public struct CBScanner: UIViewRepresentable {
         return self
     }
 
-    public func found(r: @escaping (FoundBarcode) -> Void) -> CBScanner {
+    public func foundBC(r: @escaping (FoundBarcode) -> Void) -> CBScanner {
         delegate.onResultWithFoundBarcode = r
         return self
     }
