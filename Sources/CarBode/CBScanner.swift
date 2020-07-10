@@ -47,6 +47,11 @@ public struct CBScanner: UIViewRepresentable {
         return self
     }
 
+    public func found(r: @escaping (FoundBarcode) -> Void) -> CBScanner {
+        delegate.onResultWithFoundBarcode = r
+        return self
+    }
+
     public func simulator(mockBarCode: String) -> CBScanner {
         delegate.mockData = mockBarCode
         return self
@@ -205,6 +210,7 @@ class CarBodeCameraDelegate: NSObject, AVCaptureMetadataOutputObjectsDelegate {
     var lastTime = Date(timeIntervalSince1970: 0)
 
     var onResult: (String) -> Void = { _ in }
+    var onResultWithFoundBarcode: (FoundBarcode) -> Void = { _ in }
     var mockData: String?
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
@@ -212,12 +218,21 @@ class CarBodeCameraDelegate: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
-            foundBarcode(stringValue)
+            let type = readableObject.type
+
+            if !type.rawValue.isEmpty{
+                let barcode = FoundBarcode(code: stringValue, type: type.rawValue)
+                foundBarcode(barcode)
+            }else{
+                foundBarcode(stringValue)
+            }
+
+
         }
     }
 
     @objc func onSimulateScanning() {
-        foundBarcode(mockData ?? "You're not set mock data yet.")
+        foundBarcode(mockData ?? "You haven't set any mock data yet.")
     }
 
     func foundBarcode(_ stringValue: String) {
@@ -227,5 +242,12 @@ class CarBodeCameraDelegate: NSObject, AVCaptureMetadataOutputObjectsDelegate {
             self.onResult(stringValue)
         }
     }
-}
 
+    func foundBarcode(_ foundBarcode:FoundBarcode) {
+        let now = Date()
+        if now.timeIntervalSince(lastTime) >= scanInterval {
+            lastTime = now
+            self.onResultWithFoundBarcode(foundBarcode)
+        }
+    }
+}
