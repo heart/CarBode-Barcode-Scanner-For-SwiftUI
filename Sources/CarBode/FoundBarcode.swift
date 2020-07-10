@@ -8,6 +8,6 @@
 import Foundation
 
 public struct FoundBarcode{
-    let code:String
-    let type:String
+    public let code:String
+    public let type:String
 }
