@@ -9,7 +9,7 @@
 import SwiftUI
 struct ModalScannerView: View {
     @State var barcodeValue = ""
-    @State var torceIsOn = false
+    @State var torchIsOn = false
     
     var body: some View {
         VStack{
@@ -18,7 +18,7 @@ struct ModalScannerView: View {
             Spacer()
             
             Button(action: {
-                self.torceIsOn.toggle()
+                self.torchIsOn.toggle()
             }) {
                 Text("Toggle Torch Light")
             }
@@ -32,7 +32,7 @@ struct ModalScannerView: View {
                 self.barcodeValue = $0
             }
             .simulator(mockBarCode: "MOCK BARCODE DATA 1234567890")
-            .torchLight(isOn: self.torceIsOn)
+            .torchLight(isOn: self.torchIsOn)
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 400, maxHeight: 400, alignment: .topLeading)
             
             Spacer()
