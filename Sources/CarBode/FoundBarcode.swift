@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct FoundBarcode{
+public class FoundBarcode{
     public let code:String
     public let type:String
 
