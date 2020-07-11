@@ -10,4 +10,9 @@ import Foundation
 public struct FoundBarcode{
     public let code:String
     public let type:String
+
+    init(code: String, type: String) {
+        self.code = code
+        self.type = type
+    }
 }
