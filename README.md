@@ -1,5 +1,7 @@
 ![CarBode](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/logo.png)
 
+[![DonateLink](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/donate_btn.png)](https://www.paypal.com/paypalme/iamheart/35?locale.x=th_TH)
+
 # CarBode 
 ## Free and Opensource Barcode scanner &amp; Barcode generator for swiftUI
 
