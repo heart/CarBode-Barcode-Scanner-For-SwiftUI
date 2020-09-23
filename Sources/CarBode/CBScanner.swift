@@ -9,7 +9,14 @@
 import SwiftUI
 import AVFoundation
 
+class ScannerConfiguration {
+    var previewLayer: AVCaptureVideoPreviewLayer?
+    var cameraSide = AVCaptureDevice.Position.back
+}
+
 public struct CBScanner: UIViewRepresentable {
+    
+    private var config = ScannerConfiguration()
     
     public var supportBarcode: [AVMetadataObject.ObjectType]?
     public typealias UIViewType = CameraPreview
@@ -52,9 +59,18 @@ public struct CBScanner: UIViewRepresentable {
         return self
     }
 
+    public func camera(position: AVCaptureDevice.Position) {
+        config.cameraSide = position
+        
+        print("position = \(position)")
+    }
+
+    
     func setupCamera(_ uiView: CameraPreview) {
-        if let backCamera = AVCaptureDevice.default(for: AVMediaType.video) {
-            if let input = try? AVCaptureDeviceInput(device: backCamera) {
+        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: config.cameraSide)
+        let camera = deviceDiscoverySession.devices.first
+        if let selectedCamera = camera {
+            if let input = try? AVCaptureDeviceInput(device: selectedCamera) {
                 session.sessionPreset = .photo
 
                 if session.canAddInput(input) {
@@ -66,19 +82,23 @@ public struct CBScanner: UIViewRepresentable {
                     metadataOutput.metadataObjectTypes = supportBarcode
                     metadataOutput.setMetadataObjectsDelegate(delegate, queue: DispatchQueue.main)
                 }
+                
+                config.previewLayer?.removeFromSuperlayer()
                 let previewLayer = AVCaptureVideoPreviewLayer(session: session)
-
+                
                 uiView.backgroundColor = UIColor.gray
                 previewLayer.videoGravity = .resizeAspectFill
                 uiView.layer.addSublayer(previewLayer)
                 uiView.previewLayer = previewLayer
-
+                
+                config.previewLayer = previewLayer
+                
                 session.startRunning()
             }
         }
 
     }
-
+    
     public func makeUIView(context: UIViewRepresentableContext<CBScanner>) -> CBScanner.UIViewType {
         let cameraView = CameraPreview(session: session)
 

@@ -38,6 +38,7 @@ public struct CBBarcodeView: UIViewRepresentable {
         self._data = data
         self._barcodeType = barcodeType
         self._orientation = orientation
+        
     }
 
     public func makeUIView(context: UIViewRepresentableContext<CBBarcodeView>) -> CBBarcodeView.UIViewType {
