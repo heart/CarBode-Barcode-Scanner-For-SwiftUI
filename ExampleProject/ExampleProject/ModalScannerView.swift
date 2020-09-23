@@ -8,18 +8,41 @@
 
 import SwiftUI
 import CarBode
+import AVFoundation
 
 struct ModalScannerView: View {
     @State var barcodeValue = ""
     @State var torchIsOn = false
     @State var showingAlert = false
+    @State var cameraPosition = AVCaptureDevice.Position.back
 
     var body: some View {
         VStack {
             Text("QRCode Scanner")
 
             Spacer()
-
+            
+            if cameraPosition == .back{
+                Text("Using back camera")
+            }else{
+                Text("Using front camera")
+            }
+            
+            Button(action: {
+                if cameraPosition == .back {
+                    cameraPosition = .front
+                }else{
+                    cameraPosition = .back
+                }
+            }) {
+                if cameraPosition == .back{
+                    Text("Swicth Camera to Front")
+                }else{
+                    Text("Swicth Camera to Back")
+                }
+            }
+            
+            
             Button(action: {
                 self.torchIsOn.toggle()
             }) {
@@ -27,19 +50,15 @@ struct ModalScannerView: View {
             }
 
             Spacer()
-
-            CBScanner(supportBarcode: [.qr, .code128])
-                .interval(delay: 1.0)
-                .found {
-                    print("Value=\($0.value)   Type=\($0.type.rawValue)")
-                    self.barcodeValue = $0.value
-                    self.showingAlert = true
-
-                }
-                .simulator(mockBarCode: BarcodeData(value: "MOCK BARCODE DATA 1234567890", type: .qr))
-                .torchLight(isOn: self.torchIsOn)
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 400, maxHeight: 400, alignment: .topLeading)
-
+            
+            CBScanner(
+                supportBarcode: .constant([.qr, .code128]),
+                torchLightIsOn: $torchIsOn,
+                cameraPosition: $cameraPosition
+            ){
+                print($0)
+            }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 400, maxHeight: 400, alignment: .topLeading)
+        
             Spacer()
 
             Text(barcodeValue)
