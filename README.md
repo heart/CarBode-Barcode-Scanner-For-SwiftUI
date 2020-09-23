@@ -181,3 +181,4 @@ CarBode welcomes contributions in the form of GitHub issues and pull-requests.
     - 1.2.0 Add feature allows to turn torch light on or off.
     - 1.3.0 You can set a mock barcode when running with an iOS simulator.
     - 1.4.0 Rename component and add new barcode generator view component
+    - 1.5.0 Fixed bugs and you can read the barcode type when scanner found it
