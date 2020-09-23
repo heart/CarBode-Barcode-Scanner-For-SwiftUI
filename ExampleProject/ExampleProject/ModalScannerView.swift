@@ -12,6 +12,7 @@ import CarBode
 struct ModalScannerView: View {
     @State var barcodeValue = ""
     @State var torchIsOn = false
+    @State var showingAlert = false
 
     var body: some View {
         VStack {
@@ -32,6 +33,8 @@ struct ModalScannerView: View {
                 .found {
                     print("Value=\($0.value)   Type=\($0.type.rawValue)")
                     self.barcodeValue = $0.value
+                    self.showingAlert = true
+
                 }
                 .simulator(mockBarCode: BarcodeData(value: "MOCK BARCODE DATA 1234567890", type: .qr))
                 .torchLight(isOn: self.torchIsOn)
@@ -41,6 +44,8 @@ struct ModalScannerView: View {
 
             Text(barcodeValue)
 
+        }.alert(isPresented: $showingAlert) {
+            Alert(title: Text("Found Barcode"), message: Text("\(barcodeValue)"), dismissButton: .default(Text("Close")))
         }
     }
 }

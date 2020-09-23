@@ -57,7 +57,8 @@ struct ContentView: View {
                     .interval(delay: 5.0) //Event will trigger every 5 seconds
                        .found{
                             //Your..Code..Here
-                            print($0)
+                            print($0.value)
+                            print("Barcode Type is", $0.type.rawValue)
                       }
         }
     }
@@ -88,7 +89,8 @@ struct ContentView: View {
                     .interval(delay: 5.0) //Event will trigger every 5 seconds
                        .found{
                             //Your..Code..Here
-                            print($0)
+                            print($0.value)
+                            print("Barcode Type is", $0.type.rawValue)
                       }
         }
     }
@@ -105,7 +107,8 @@ No need to remove the mock barcode from the production app it will only use for 
  CBScanner(supportBarcode: [.qr, .code128])
             .interval(delay: 1.0)
             .found{
-                print($0)
+                print($0.value)
+                print("Barcode Type is", $0.type.rawValue)
             }
             .simulator(mockBarCode: "MOCK BARCODE DATA 1234567890")
 ```
