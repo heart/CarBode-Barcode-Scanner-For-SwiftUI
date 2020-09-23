@@ -2,8 +2,14 @@
 
 [![DonateLink](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/donate_btn.png)](https://www.paypal.com/paypalme/iamheart/35?locale.x=th_TH)
 
-# CarBode 
+# CarBode
 ## Free and Opensource Barcode scanner &amp; Barcode generator for swiftUI
+
+# Why you must use the CarBode
+1. CarBode have both Barcode Scanner and Barcode Generator 
+1. CarBode is a lightweight components
+1. CarBode build on AVFoundation it will supported all of barcodes types that AVFoundation supported
+1. CarBode can turn on the torch light and it can toggle between front and back camera
 
 ![Supported Barcode](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/barcode_type.jpg)
 
@@ -15,6 +21,7 @@
     - [torch light on/off](#how-to-turn-torch-light-onoff)
     - [Test on iOS simulator](#test-on-ios-simulator)
     - [Barcode types support](#barcode-types-support)
+    - [Switch front/back camera](#switch-to-front-camera)
 - [How to use barcode generator view](#how-to-use-barcode-generator-view)
     - [Barcode type you can generate](#barcode-type-you-can-generate)
     - [Rotate your barcode](#rotate-your-barcode)
