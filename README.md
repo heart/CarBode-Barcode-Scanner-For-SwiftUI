@@ -5,7 +5,7 @@
 # CarBode
 ## Free and Opensource Barcode scanner &amp; Barcode generator for swiftUI
 
-# Why you must use the CarBode
+# Why you must use CarBode
 1. CarBode have both Barcode Scanner and Barcode Generator 
 1. CarBode is a lightweight components
 1. CarBode build on AVFoundation it will supported all of barcodes types that AVFoundation supported
