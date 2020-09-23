@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CarBode",
+        "repositoryURL": "https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI",
+        "state": {
+          "branch": "master",
+          "revision": "08c5312ae6c1d71625224e11d834fb79b1792bab",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
