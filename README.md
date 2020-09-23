@@ -49,18 +49,22 @@ CarBode-Barcode-Scanner-For-SwiftUI/ExampleProject/ExampleProject.xcodeproj
 ```Swift
 import SwiftUI
 import CarBode
+import AVFoundation //import to access barcode types you want to scan
 
 struct ContentView: View {
+
     var body: some View {
         VStack{
-        CBScanner(supportBarcode: [.qr, .code128]) //Set type of barcode you want to scan
-                    .interval(delay: 5.0) //Event will trigger every 5 seconds
-                       .found{
-                            //Your..Code..Here
-                            print($0.value)
-                            print("Barcode Type is", $0.type.rawValue)
-                      }
-        }
+
+        CBScanner(
+                supportBarcode: .constant([.qr, .code128]), //Set type of barcode you want to scan
+                scanInterval: .constant(5.0) //Event will trigger every 5 seconds
+            ){
+                //When the scanner found a barcode
+                print($0.value)
+                print("Barcode Type is", $0.type.rawValue)
+            }
+
     }
 }
 ```
@@ -69,6 +73,7 @@ struct ContentView: View {
 ```Swift
 import SwiftUI
 import CarBode
+import AVFoundation //import to access barcode types you want to scan
 
 @State var torchIsOn = false
 
@@ -77,24 +82,72 @@ struct ContentView: View {
         VStack{
 
         Button(action: {
-            self.torchIsOn.toggle()
+            self.torchIsOn.toggle() //Toggle On/Off
         }) {
             Text("Toggle Torch Light")
         }
             
         Spacer()
         
-        CBScanner(supportBarcode: [.qr, .code128]) //Set type of barcode you want to scan
-                    .torchLight(isOn: self.torchIsOn) // Turn torch light on/off
-                    .interval(delay: 5.0) //Event will trigger every 5 seconds
-                       .found{
-                            //Your..Code..Here
-                            print($0.value)
-                            print("Barcode Type is", $0.type.rawValue)
-                      }
+        CBScanner(
+                supportBarcode: .constant([.qr, .code128]), //Set type of barcode you want to scan
+                scanInterval: .constant(5.0), //Event will trigger every 5 seconds
+                torchLightIsOn: $torchIsOn // Bind a Bool to enable/disable torch light
+            ){
+                //When the scanner found a barcode
+                print($0.value)
+                print("Barcode Type is", $0.type.rawValue)
+            }
         }
     }
 }
+```
+
+# Switch to front camera
+```swift
+import SwiftUI
+import CarBode
+import AVFoundation //import to access barcode types you want to scan
+
+@State var torchIsOn = false
+
+struct ContentView: View {
+    var body: some View {
+        VStack{
+
+        @State var cameraPosition = AVCaptureDevice.Position.back
+
+        // Click to Toggle camera
+        Button(action: {
+            if cameraPosition == .back {
+                cameraPosition = .front
+            }else{
+                cameraPosition = .back
+            }
+        }) {
+            if cameraPosition == .back{
+                Text("Swicth Camera to Front")
+            }else{
+                Text("Swicth Camera to Back")
+            }
+        }
+            
+        Spacer()
+        
+        CBScanner(
+                supportBarcode: .constant([.qr, .code128]), //Set type of barcode you want to scan
+                scanInterval: .constant(5.0), //Event will trigger every 5 seconds
+                
+                cameraPosition: $cameraPosition  //Bind to switch front/back camera
+            ){
+                //When the scanner found a barcode
+                print($0.value)
+                print("Barcode Type is", $0.type.rawValue)
+            }
+        }
+    }
+}
+
 ```
 
 # Test on iOS simulator
@@ -104,17 +157,21 @@ but you can set a mock barcode for iOS simulator.
 
 No need to remove the mock barcode from the production app it will only use for iOS simulator.
 ```Swift
- CBScanner(supportBarcode: [.qr, .code128])
-            .interval(delay: 1.0)
-            .found{
-                print($0.value)
-                print("Barcode Type is", $0.type.rawValue)
-            }
-            .simulator(mockBarCode: "MOCK BARCODE DATA 1234567890")
+    CBScanner(
+        supportBarcode: .constant([.qr, .code128]), //Set type of barcode you want to scan
+        scanInterval: .constant(5.0), //Event will trigger every 5 seconds
+        mockBarCode: BarcodeData(value:"Mocking data", type: .qr)
+    ){
+        //When you click the button on screen mock data will appear here
+        print($0.value)
+        print("Barcode Type is", $0.type.rawValue)
+    }
 ```
 
 ## Barcode Types Support
 Read here [https://developer.apple.com/documentation/avfoundation/avmetadataobject/objecttype](https://developer.apple.com/documentation/avfoundation/avmetadataobject/objecttype) 
+
+
 
 
 # How to use barcode generator view
@@ -132,10 +189,13 @@ struct ModalBarcodeGenerator: View {
     var body: some View {
         var body: some View {
         VStack {
-            CBBarcodeView(data: $dataString,
-                barcodeType: $barcodeType,
-                orientation: $rotate)
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 400, maxHeight: 400, alignment: .topLeading)
+            CBScanner(
+                supportBarcode: .constant([.qr, .code128]),
+                torchLightIsOn: $torchIsOn,
+                cameraPosition: $cameraPosition
+            ){
+                print($0)
+            }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 400, maxHeight: 400, alignment: .topLeading)
         }
     }
 }
@@ -177,8 +237,9 @@ CBBarcodeView(data: ..... ,
 CarBode welcomes contributions in the form of GitHub issues and pull-requests.
 
 ## Changelog
-    - 1.0.1 Fixed bug camera delay 10 seconds when use on modal.
-    - 1.2.0 Add feature allows to turn torch light on or off.
-    - 1.3.0 You can set a mock barcode when running with an iOS simulator.
-    - 1.4.0 Rename component and add new barcode generator view component
+    - 2.0.0 I learned many more things about SwiftUI then I decide to restructure the scanner I hope you will like it. And this version you can switch front and back camera.
     - 1.5.0 Fixed bugs and you can read the barcode type when scanner found it
+    - 1.4.0 Rename component and add new barcode generator view component
+    - 1.3.0 You can set a mock barcode when running with an iOS simulator.
+    - 1.2.0 Add feature allows to turn torch light on or off.
+    - 1.0.1 Fixed bug camera delay 10 seconds when use on modal.
