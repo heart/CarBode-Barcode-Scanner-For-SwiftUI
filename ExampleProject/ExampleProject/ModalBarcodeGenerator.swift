@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CarBode
 
 struct ModalBarcodeGenerator: View {
 

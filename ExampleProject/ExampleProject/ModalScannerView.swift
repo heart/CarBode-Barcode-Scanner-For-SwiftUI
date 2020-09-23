@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import CarBode
+
 struct ModalScannerView: View {
     @State var barcodeValue = ""
     @State var torchIsOn = false
