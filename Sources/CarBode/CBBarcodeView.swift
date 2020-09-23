@@ -59,7 +59,6 @@ public class BarcodeView: UIImageView {
     private var barcodeType: CBBarcodeView.BarcodeType?
     
     func gen(data: String?, barcodeType: CBBarcodeView.BarcodeType) {
-        print("Frame = \(frame)")
         guard let string = data, !string.isEmpty else {
             self.image = nil
             return
@@ -122,5 +121,11 @@ private extension UIImage {
             return newImage
         }
         return nil
+    }
+}
+
+struct CBBarcodeView_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }

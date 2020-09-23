@@ -10,7 +10,7 @@ import SwiftUI
 import AVFoundation
 
 public struct CBScanner: UIViewRepresentable {
-
+    
     public var supportBarcode: [AVMetadataObject.ObjectType]?
     public typealias UIViewType = CameraPreview
 
@@ -42,17 +42,12 @@ public struct CBScanner: UIViewRepresentable {
         return self
     }
 
-    public func found(r: @escaping (String) -> Void) -> CBScanner {
+    public func found(r: @escaping (BarcodeData) -> Void) -> CBScanner {
         delegate.onResult = r
         return self
     }
 
-    public func foundBC(r: @escaping (FoundBarcode) -> Void) -> CBScanner {
-        delegate.onResultWithFoundBarcode = r
-        return self
-    }
-
-    public func simulator(mockBarCode: String) -> CBScanner {
+    public func simulator(mockBarCode: BarcodeData) -> CBScanner {
         delegate.mockData = mockBarCode
         return self
     }
@@ -209,45 +204,29 @@ class CarBodeCameraDelegate: NSObject, AVCaptureMetadataOutputObjectsDelegate {
     var scanInterval: Double = 3.0
     var lastTime = Date(timeIntervalSince1970: 0)
 
-    var onResult: (String) -> Void = { _ in }
-    var onResultWithFoundBarcode: (FoundBarcode) -> Void = { _ in }
-    var mockData: String?
+    var onResult: (BarcodeData) -> Void = { _ in }
+    var mockData: BarcodeData?
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+
         if let metadataObject = metadataObjects.first {
-
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
-            guard let stringValue = readableObject.stringValue else { return }
-            let type = readableObject.type
-
-            if !type.rawValue.isEmpty{
-                let barcode = FoundBarcode(code: stringValue, type: type.rawValue)
+            if let stringValue = readableObject.stringValue {
+                let barcode = BarcodeData(value: stringValue, type: readableObject.type)
                 foundBarcode(barcode)
-            }else{
-                foundBarcode(stringValue)
             }
-
-
         }
     }
 
     @objc func onSimulateScanning() {
-        foundBarcode(mockData ?? "You haven't set any mock data yet.")
+        foundBarcode(mockData ?? BarcodeData(value: "Mock Value", type: .qr))
     }
 
-    func foundBarcode(_ stringValue: String) {
+    func foundBarcode(_ barcode: BarcodeData) {
         let now = Date()
         if now.timeIntervalSince(lastTime) >= scanInterval {
             lastTime = now
-            self.onResult(stringValue)
-        }
-    }
-
-    func foundBarcode(_ foundBarcode:FoundBarcode) {
-        let now = Date()
-        if now.timeIntervalSince(lastTime) >= scanInterval {
-            lastTime = now
-            self.onResultWithFoundBarcode(foundBarcode)
+            self.onResult(barcode)
         }
     }
 }

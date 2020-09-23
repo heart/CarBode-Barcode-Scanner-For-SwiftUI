@@ -17,6 +17,7 @@
 		3EC5EF8823C447EE0063A687 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EC5EF8623C447EE0063A687 /* LaunchScreen.storyboard */; };
 		3EC5EF9023C447FC0063A687 /* CBScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC5EF8F23C447FC0063A687 /* CBScanner.swift */; };
 		3EC5EF9223C448A20063A687 /* ModalScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC5EF9123C448A20063A687 /* ModalScannerView.swift */; };
+		4F73F8F8251B476C0019CC57 /* BarcodeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F73F8F7251B476B0019CC57 /* BarcodeData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		3EC5EF8923C447EE0063A687 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EC5EF8F23C447FC0063A687 /* CBScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CBScanner.swift; path = ../../Sources/CarBode/CBScanner.swift; sourceTree = "<group>"; };
 		3EC5EF9123C448A20063A687 /* ModalScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalScannerView.swift; sourceTree = "<group>"; };
+		4F73F8F7251B476B0019CC57 /* BarcodeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarcodeData.swift; path = ../../Sources/CarBode/BarcodeData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		3EC5EF7A23C447EA0063A687 /* ExampleProject */ = {
 			isa = PBXGroup;
 			children = (
+				4F73F8F7251B476B0019CC57 /* BarcodeData.swift */,
 				3E43BC622410C7ED00B3384A /* CBBarcodeView.swift */,
 				3EC5EF8F23C447FC0063A687 /* CBScanner.swift */,
 				3EC5EF7B23C447EA0063A687 /* AppDelegate.swift */,
@@ -159,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EC5EF9023C447FC0063A687 /* CBScanner.swift in Sources */,
+				4F73F8F8251B476C0019CC57 /* BarcodeData.swift in Sources */,
 				3EC5EF7C23C447EA0063A687 /* AppDelegate.swift in Sources */,
 				3EC5EF7E23C447EA0063A687 /* SceneDelegate.swift in Sources */,
 				3E43BC652410C85300B3384A /* ModalBarcodeGenerator.swift in Sources */,
