@@ -184,7 +184,7 @@ Read here [https://developer.apple.com/documentation/avfoundation/avmetadataobje
 # How to use barcode generator view
 ![SwiftUI QRCode Scanner](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/generator.png)
 
-## Excample code
+## Example code
 ```Swift
 import SwiftUI
 
@@ -196,13 +196,10 @@ struct ModalBarcodeGenerator: View {
     var body: some View {
         var body: some View {
         VStack {
-            CBScanner(
-                supportBarcode: .constant([.qr, .code128]),
-                torchLightIsOn: $torchIsOn,
-                cameraPosition: $cameraPosition
-            ){
-                print($0)
-            }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 400, maxHeight: 400, alignment: .topLeading)
+            CBBarcodeView(data: $dataString,
+                barcodeType: $barcodeType,
+                orientation: $rotate)
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 400, maxHeight: 400, alignment: .topLeading)
         }
     }
 }
