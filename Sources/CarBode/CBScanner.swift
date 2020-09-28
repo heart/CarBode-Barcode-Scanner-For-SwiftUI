@@ -9,30 +9,31 @@
 import SwiftUI
 import AVFoundation
 
-typealias OnFound = (BarcodeData)->Void
+
 
 public struct CBScanner: UIViewRepresentable {
 
+    public typealias OnFound = (BarcodeData)->Void
     public typealias UIViewType = CameraPreview
     
     @Binding
-    var supportBarcode: [AVMetadataObject.ObjectType]
+    public var supportBarcode: [AVMetadataObject.ObjectType]
     
     @Binding
-    var torchLightIsOn:Bool
+    public var torchLightIsOn:Bool
     
     @Binding
-    var scanInterval: Double
+    public var scanInterval: Double
     
     @Binding
-    var cameraPosition:AVCaptureDevice.Position
+    public var cameraPosition:AVCaptureDevice.Position
     
     @Binding
-    var mockBarCode: BarcodeData
+    public var mockBarCode: BarcodeData
     
-    var onFound: OnFound?
+    public var onFound: OnFound?
     
-    init(supportBarcode:Binding<[AVMetadataObject.ObjectType]> ,
+    public init(supportBarcode:Binding<[AVMetadataObject.ObjectType]> ,
          torchLightIsOn: Binding<Bool> = .constant(false),
          scanInterval: Binding<Double> = .constant(3.0),
          cameraPosition: Binding<AVCaptureDevice.Position> = .constant(.back),

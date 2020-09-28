@@ -15,7 +15,7 @@
 		3EC5EF8523C447EE0063A687 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EC5EF8423C447EE0063A687 /* Preview Assets.xcassets */; };
 		3EC5EF8823C447EE0063A687 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EC5EF8623C447EE0063A687 /* LaunchScreen.storyboard */; };
 		3EC5EF9223C448A20063A687 /* ModalScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC5EF9123C448A20063A687 /* ModalScannerView.swift */; };
-		4FF401D4251BBE5200C3F227 /* CarBode in Frameworks */ = {isa = PBXBuildFile; productRef = 4FF401D3251BBE5200C3F227 /* CarBode */; };
+		4FE393E02521C1FD007165D3 /* CarBode in Frameworks */ = {isa = PBXBuildFile; productRef = 4FE393DF2521C1FD007165D3 /* CarBode */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +29,7 @@
 		3EC5EF8723C447EE0063A687 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3EC5EF8923C447EE0063A687 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EC5EF9123C448A20063A687 /* ModalScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalScannerView.swift; sourceTree = "<group>"; };
+		4FE393DB2521C0D8007165D3 /* cb */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cb; path = ../../../../../Downloads/cb; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,7 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FF401D4251BBE5200C3F227 /* CarBode in Frameworks */,
+				4FE393E02521C1FD007165D3 /* CarBode in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +49,7 @@
 			children = (
 				3EC5EF7A23C447EA0063A687 /* ExampleProject */,
 				3EC5EF7923C447EA0063A687 /* Products */,
+				4FE393DE2521C1FD007165D3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,9 +80,17 @@
 		3EC5EF8323C447EE0063A687 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				4FE393DB2521C0D8007165D3 /* cb */,
 				3EC5EF8423C447EE0063A687 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4FE393DE2521C1FD007165D3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -100,7 +110,7 @@
 			);
 			name = ExampleProject;
 			packageProductDependencies = (
-				4FF401D3251BBE5200C3F227 /* CarBode */,
+				4FE393DF2521C1FD007165D3 /* CarBode */,
 			);
 			productName = ExampleProject;
 			productReference = 3EC5EF7823C447EA0063A687 /* ExampleProject.app */;
@@ -131,7 +141,6 @@
 			);
 			mainGroup = 3EC5EF6F23C447EA0063A687;
 			packageReferences = (
-				4FF401D2251BBE5200C3F227 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */,
 			);
 			productRefGroup = 3EC5EF7923C447EA0063A687 /* Products */;
 			projectDirPath = "";
@@ -359,21 +368,9 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		4FF401D2251BBE5200C3F227 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI";
-			requirement = {
-				branch = develop;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		4FF401D3251BBE5200C3F227 /* CarBode */ = {
+		4FE393DF2521C1FD007165D3 /* CarBode */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4FF401D2251BBE5200C3F227 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */;
 			productName = CarBode;
 		};
 /* End XCSwiftPackageProductDependency section */
