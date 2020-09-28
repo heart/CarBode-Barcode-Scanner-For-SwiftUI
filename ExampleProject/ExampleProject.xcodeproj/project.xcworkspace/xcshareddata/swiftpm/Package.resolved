@@ -3,10 +3,10 @@
     "pins": [
       {
         "package": "CarBode",
-        "repositoryURL": "https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI",
+        "repositoryURL": "https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/",
         "state": {
-          "branch": "develop",
-          "revision": "dd2a019124b27cdd56f248277a85e34bf598aa76",
+          "branch": "master",
+          "revision": "dae98fbf72430573e3c1818e9efbcf3eba4aac47",
           "version": null
         }
       }

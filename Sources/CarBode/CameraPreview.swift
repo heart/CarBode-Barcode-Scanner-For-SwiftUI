@@ -22,7 +22,7 @@ public class CameraPreview: UIView {
     var scanInterval: Double = 3.0
     var lastTime = Date(timeIntervalSince1970: 0)
 
-    var onFound: OnFound?
+    var onFound: CBScanner.OnFound?
     var mockBarCode: BarcodeData?
     var selectedCamera: AVCaptureDevice?
     
