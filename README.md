@@ -192,7 +192,7 @@ struct ModalBarcodeGenerator: View {
     @State var dataString = "Hello Carbode"
     @State var barcodeType = CBBarcodeView.BarcodeType.qrCode
     @State var rotate = CBBarcodeView.Orientation.up
-    
+
     var body: some View {
         var body: some View {
             VStack {
