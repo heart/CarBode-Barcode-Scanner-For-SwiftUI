@@ -1,6 +1,6 @@
 //
 //  CameraPreview.swift
-//  
+//
 //
 //  Created by narongrit kanhanoi on 7/10/2562 BE.
 //  Copyright © 2562 PAM. All rights reserved.
@@ -17,16 +17,19 @@ public class CameraPreview: UIView {
     var session: AVCaptureSession?
     var supportBarcode: [AVMetadataObject.ObjectType]?
 
+    var shapeLayer: CAShapeLayer?
+
     private var label: UILabel?
 
     var scanInterval: Double = 3.0
     var lastTime = Date(timeIntervalSince1970: 0)
 
+    var onDraw: CBScanner.OnDraw?
     var onFound: CBScanner.OnFound?
     var mockBarCode: BarcodeData?
     var selectedCamera: AVCaptureDevice?
-    
-    var torchLightIsOn:Bool = false
+
+    var torchLightIsOn: Bool = false
 
     init() {
         super.init(frame: .zero)
@@ -44,13 +47,13 @@ public class CameraPreview: UIView {
         #endif
     }
 
-    func setSupportedBarcode(supportBarcode: [AVMetadataObject.ObjectType]){
+    func setSupportedBarcode(supportBarcode: [AVMetadataObject.ObjectType]) {
         self.supportBarcode = supportBarcode
-        
-        guard let session = session else {return}
-        
+
+        guard let session = session else { return }
+
         session.beginConfiguration()
-        
+
         let metadataOutput = AVCaptureMetadataOutput()
 
         if session.canAddOutput(metadataOutput) {
@@ -59,7 +62,7 @@ public class CameraPreview: UIView {
             metadataOutput.metadataObjectTypes = supportBarcode
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
         }
-        
+
         if session.canAddOutput(metadataOutput) {
             session.addOutput(metadataOutput)
 
@@ -68,14 +71,14 @@ public class CameraPreview: UIView {
         }
         session.commitConfiguration()
     }
-    
+
     func setCamera(position: AVCaptureDevice.Position) {
-        
-        if cameraPosition == position {return}
+
+        if cameraPosition == position { return }
         cameraPosition = position
-        
-        guard let session = session else {return}
-        
+
+        guard let session = session else { return }
+
         session.beginConfiguration()
         if let input = cameraInput {
             session.removeInput(input)
@@ -83,7 +86,7 @@ public class CameraPreview: UIView {
         }
 
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: cameraPosition)
-        
+
         let camera = deviceDiscoverySession.devices.first
         if let selectedCamera = camera {
             if let input = try? AVCaptureDeviceInput(device: selectedCamera) {
@@ -98,9 +101,9 @@ public class CameraPreview: UIView {
     }
 
     func setTorchLight(isOn: Bool) {
-        
-        if torchLightIsOn == isOn {return}
-        
+
+        if torchLightIsOn == isOn { return }
+
         torchLightIsOn = isOn
         if let camera = selectedCamera {
             if camera.hasTorch {
@@ -137,7 +140,7 @@ public class CameraPreview: UIView {
             if let input = try? AVCaptureDeviceInput(device: selectedCamera) {
 
                 let session = AVCaptureSession()
-                session.sessionPreset = .photo
+                session.sessionPreset = .hd1280x720
 
                 if session.canAddInput(input) {
                     session.addInput(input)
@@ -166,7 +169,6 @@ public class CameraPreview: UIView {
                 self.session = session
                 self.previewLayer = previewLayer
                 self.selectedCamera = selectedCamera
-                
             }
         }
     }
@@ -232,6 +234,15 @@ extension CameraPreview: AVCaptureMetadataOutputObjectsDelegate {
 
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
+
+            if let barcodeFrame = onDraw?() {
+
+                drawFrame(corners: readableObject.corners,
+                    lineWidth: barcodeFrame.lineWidth,
+                    lineColor: barcodeFrame.lineColor,
+                    fillColor: barcodeFrame.fillColor)
+            }
+
             if let stringValue = readableObject.stringValue {
                 let barcode = BarcodeData(value: stringValue, type: readableObject.type)
                 foundBarcode(barcode)
@@ -243,10 +254,77 @@ extension CameraPreview: AVCaptureMetadataOutputObjectsDelegate {
         let now = Date()
         if now.timeIntervalSince(lastTime) >= scanInterval {
             lastTime = now
-            
-            if let onFound = onFound {
-                onFound(barcode)
-            }
+            onFound?(barcode)
         }
     }
 }
+
+
+extension CameraPreview {
+
+    /*
+     case portrait = 1
+
+     case portraitUpsideDown = 2
+
+     case landscapeRight = 3
+
+     case landscapeLeft = 4
+     */
+    func convertToViewCoordinate(point: CGPoint) -> CGPoint {
+        let orientation = getVideoOrientation()
+        
+        let scale =  self.bounds.width / 1280
+        let previewWidth = 1280 * scale
+        let previewHeight = 720 * scale
+        
+        let croppedFrameY = previewHeight / 2 - self.bounds.height / 2
+        
+        let pointX = point.x * previewWidth
+        let pointY = (point.y * previewHeight) - croppedFrameY
+        
+        
+        
+        
+        return CGPoint(x: pointX , y: pointY)
+    }
+
+
+    func drawFrame(corners: [CGPoint], lineWidth: CGFloat = 1, lineColor: UIColor = UIColor.red, fillColor: UIColor = UIColor.clear) -> Void {
+
+        if shapeLayer != nil {
+            shapeLayer?.removeFromSuperlayer()
+        }
+        let bezierPath = UIBezierPath()
+        var first = true
+
+        corners.forEach {
+            let pnt = convertToViewCoordinate(point: $0)
+            
+            if first {
+                first = false
+                bezierPath.move(to: pnt)
+            } else {
+                bezierPath.addLine(to: pnt)
+            }
+        }
+
+        if corners.count > 0 {
+            let pnt = convertToViewCoordinate(point: corners[0])
+            bezierPath.addLine(to: pnt)
+        }
+
+
+        shapeLayer?.frame = self.bounds
+        shapeLayer = CAShapeLayer()
+        shapeLayer?.path = bezierPath.cgPath
+        shapeLayer?.strokeColor = lineColor.cgColor
+        shapeLayer?.fillColor = fillColor.cgColor
+        shapeLayer?.lineWidth = lineWidth
+
+        if let shapeLayer = shapeLayer {
+            self.layer.addSublayer(shapeLayer)
+        }
+    }
+}
+
