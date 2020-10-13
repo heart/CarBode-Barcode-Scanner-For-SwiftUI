@@ -195,11 +195,12 @@ struct ModalBarcodeGenerator: View {
 
     var body: some View {
         var body: some View {
-        VStack {
-            CBBarcodeView(data: $dataString,
-                barcodeType: $barcodeType,
-                orientation: $rotate)
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 400, maxHeight: 400, alignment: .topLeading)
+            VStack {
+                CBBarcodeView(data: $dataString,
+                              barcodeType: $barcodeType,
+                              orientation: $rotate)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 400, maxHeight: 400, alignment: .topLeading)
+            }
         }
     }
 }
