@@ -1,6 +1,6 @@
 //
 //  CameraPreview.swift
-//  
+//
 //
 //  Created by narongrit kanhanoi on 7/10/2562 BE.
 //  Copyright © 2562 PAM. All rights reserved.
@@ -17,16 +17,21 @@ public class CameraPreview: UIView {
     var session: AVCaptureSession?
     var supportBarcode: [AVMetadataObject.ObjectType]?
 
+    var shapeLayer: CAShapeLayer?
+
     private var label: UILabel?
 
     var scanInterval: Double = 3.0
     var lastTime = Date(timeIntervalSince1970: 0)
 
+    var onDraw: CBScanner.OnDraw?
     var onFound: CBScanner.OnFound?
     var mockBarCode: BarcodeData?
     var selectedCamera: AVCaptureDevice?
+
+    var torchLightIsOn: Bool = false
     
-    var torchLightIsOn:Bool = false
+    var removeFrameTimer:Timer?
 
     init() {
         super.init(frame: .zero)
@@ -44,13 +49,13 @@ public class CameraPreview: UIView {
         #endif
     }
 
-    func setSupportedBarcode(supportBarcode: [AVMetadataObject.ObjectType]){
+    func setSupportedBarcode(supportBarcode: [AVMetadataObject.ObjectType]) {
         self.supportBarcode = supportBarcode
-        
-        guard let session = session else {return}
-        
+
+        guard let session = session else { return }
+
         session.beginConfiguration()
-        
+
         let metadataOutput = AVCaptureMetadataOutput()
 
         if session.canAddOutput(metadataOutput) {
@@ -59,7 +64,7 @@ public class CameraPreview: UIView {
             metadataOutput.metadataObjectTypes = supportBarcode
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
         }
-        
+
         if session.canAddOutput(metadataOutput) {
             session.addOutput(metadataOutput)
 
@@ -68,14 +73,14 @@ public class CameraPreview: UIView {
         }
         session.commitConfiguration()
     }
-    
+
     func setCamera(position: AVCaptureDevice.Position) {
-        
-        if cameraPosition == position {return}
+
+        if cameraPosition == position { return }
         cameraPosition = position
-        
-        guard let session = session else {return}
-        
+
+        guard let session = session else { return }
+
         session.beginConfiguration()
         if let input = cameraInput {
             session.removeInput(input)
@@ -83,7 +88,7 @@ public class CameraPreview: UIView {
         }
 
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: cameraPosition)
-        
+
         let camera = deviceDiscoverySession.devices.first
         if let selectedCamera = camera {
             if let input = try? AVCaptureDeviceInput(device: selectedCamera) {
@@ -98,9 +103,9 @@ public class CameraPreview: UIView {
     }
 
     func setTorchLight(isOn: Bool) {
-        
-        if torchLightIsOn == isOn {return}
-        
+
+        if torchLightIsOn == isOn { return }
+
         torchLightIsOn = isOn
         if let camera = selectedCamera {
             if camera.hasTorch {
@@ -137,7 +142,7 @@ public class CameraPreview: UIView {
             if let input = try? AVCaptureDeviceInput(device: selectedCamera) {
 
                 let session = AVCaptureSession()
-                session.sessionPreset = .photo
+                session.sessionPreset = .hd1280x720
 
                 if session.canAddInput(input) {
                     session.addInput(input)
@@ -166,7 +171,6 @@ public class CameraPreview: UIView {
                 self.session = session
                 self.previewLayer = previewLayer
                 self.selectedCamera = selectedCamera
-                
             }
         }
     }
@@ -232,6 +236,16 @@ extension CameraPreview: AVCaptureMetadataOutputObjectsDelegate {
 
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
+
+            var corners: [CGPoint] = []
+            readableObject.corners.forEach {
+                let point = convertToViewCoordinate(point: $0)
+                corners.append(point)
+            }
+
+            let frame = BarcodeFrame(corners: corners, cameraPreviewView: self)
+            onDraw?(frame)
+
             if let stringValue = readableObject.stringValue {
                 let barcode = BarcodeData(value: stringValue, type: readableObject.type)
                 foundBarcode(barcode)
@@ -243,10 +257,112 @@ extension CameraPreview: AVCaptureMetadataOutputObjectsDelegate {
         let now = Date()
         if now.timeIntervalSince(lastTime) >= scanInterval {
             lastTime = now
-            
-            if let onFound = onFound {
-                onFound(barcode)
-            }
+            onFound?(barcode)
         }
     }
 }
+
+
+extension CameraPreview {
+    func convertToViewCoordinate(point: CGPoint) -> CGPoint {
+        let orientation = getVideoOrientation()
+
+        var pointX: CGFloat = 0
+        var pointY: CGFloat = 0
+
+        switch orientation {
+        case .portrait:
+            let scale = self.bounds.width / 720
+            let previewWidth = 720 * scale
+            let previewHeight = 1280 * scale
+
+            let croppedFrameY = previewHeight / 2 - self.bounds.height / 2
+
+            let x = 1.0 - point.y
+            let y = point.x
+
+            pointX = x * previewWidth
+            pointY = (y * previewHeight) - croppedFrameY
+        case .landscapeRight:
+            let scale = self.bounds.width / 1280
+            let previewWidth = 1280 * scale
+            let previewHeight = 720 * scale
+
+            let croppedFrameY = previewHeight / 2 - self.bounds.height / 2
+
+            pointX = point.x * previewWidth
+            pointY = (point.y * previewHeight) - croppedFrameY
+        case .landscapeLeft:
+            let scale = self.bounds.width / 1280
+            let previewWidth = 1280 * scale
+            let previewHeight = 720 * scale
+
+            let croppedFrameY = previewHeight / 2 - self.bounds.height / 2
+
+            let x = 1.0 - point.x
+            let y = 1.0 - point.y
+
+            pointX = x * previewWidth
+            pointY = (y * previewHeight) - croppedFrameY
+        case .portraitUpsideDown:
+            let scale = self.bounds.width / 720
+            let previewWidth = 720 * scale
+            let previewHeight = 1280 * scale
+
+            let croppedFrameY = previewHeight / 2 - self.bounds.height / 2
+
+            let x = 1.0 - point.y
+            let y = point.x
+
+            pointX = x * previewWidth
+            pointY = (y * previewHeight) - croppedFrameY
+        @unknown default:
+            pointX = 0
+            pointY = 0
+        }
+
+        return CGPoint(x: pointX, y: pointY)
+    }
+    
+    @objc func removeBarcodeFrame() {
+        shapeLayer?.removeFromSuperlayer()
+    }
+
+    func drawFrame(corners: [CGPoint], lineWidth: CGFloat = 1, lineColor: UIColor = UIColor.red, fillColor: UIColor = UIColor.clear) -> Void {
+        
+        removeFrameTimer?.invalidate()
+        removeFrameTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(removeBarcodeFrame), userInfo: nil, repeats: false)
+        
+        if shapeLayer != nil {
+            shapeLayer?.removeFromSuperlayer()
+        }
+        let bezierPath = UIBezierPath()
+        var first = true
+
+        corners.forEach {
+            if first {
+                first = false
+                bezierPath.move(to: $0)
+            } else {
+                bezierPath.addLine(to: $0)
+            }
+        }
+
+        if corners.count > 0 {
+            let pnt = corners[0]
+            bezierPath.addLine(to: pnt)
+        }
+
+        shapeLayer?.frame = self.bounds
+        shapeLayer = CAShapeLayer()
+        shapeLayer?.path = bezierPath.cgPath
+        shapeLayer?.strokeColor = lineColor.cgColor
+        shapeLayer?.fillColor = fillColor.cgColor
+        shapeLayer?.lineWidth = lineWidth
+
+        if let shapeLayer = shapeLayer {
+            self.layer.addSublayer(shapeLayer)
+        }
+    }
+}
+

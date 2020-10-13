@@ -14,6 +14,8 @@ import AVFoundation
 public struct CBScanner: UIViewRepresentable {
 
     public typealias OnFound = (BarcodeData)->Void
+    public typealias OnDraw = (BarcodeFrame)->Void
+    
     public typealias UIViewType = CameraPreview
     
     @Binding
@@ -32,13 +34,15 @@ public struct CBScanner: UIViewRepresentable {
     public var mockBarCode: BarcodeData
     
     public var onFound: OnFound?
+    public var onDraw: OnDraw?
     
     public init(supportBarcode:Binding<[AVMetadataObject.ObjectType]> ,
          torchLightIsOn: Binding<Bool> = .constant(false),
          scanInterval: Binding<Double> = .constant(3.0),
          cameraPosition: Binding<AVCaptureDevice.Position> = .constant(.back),
          mockBarCode: Binding<BarcodeData> = .constant(BarcodeData(value: "barcode value", type: .qr)),
-         onFound: @escaping OnFound
+         onFound: @escaping OnFound,
+         onDraw: OnDraw? = nil
     ) {
         _torchLightIsOn = torchLightIsOn
         _supportBarcode = supportBarcode
@@ -46,6 +50,7 @@ public struct CBScanner: UIViewRepresentable {
         _cameraPosition = cameraPosition
         _mockBarCode = mockBarCode
         self.onFound = onFound
+        self.onDraw = onDraw
     }
     
     public func makeUIView(context: UIViewRepresentableContext<CBScanner>) -> CBScanner.UIViewType {
@@ -54,6 +59,7 @@ public struct CBScanner: UIViewRepresentable {
         view.supportBarcode = supportBarcode
         view.setupScanner()
         view.onFound = onFound
+        view.onDraw = onDraw
         return view
     }
 

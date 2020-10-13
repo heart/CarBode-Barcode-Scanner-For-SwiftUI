@@ -5,6 +5,8 @@
 # CarBode
 ## Free and Opensource Barcode scanner &amp; Barcode generator for swiftUI
 
+![CarBodeDemo](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/demo.gif)
+
 # Why you must use CarBode
 1. CarBode have both Barcode Scanner and Barcode Generator 
 1. CarBode is a lightweight components
@@ -18,10 +20,12 @@
 - [Example project](#example-project)
 - [How to use scanner view](#how-to-use-scanner-view)
     - [Add camera usage description to `info.plist`](#add-camera-usage-description-to-your-infoplist)
+    - [Simple Sscanner](#simple-scanner)
+    - [Draw box around the barcode](#draw-box-around-the-barcode)
     - [torch light on/off](#how-to-turn-torch-light-onoff)
-    - [Test on iOS simulator](#test-on-ios-simulator)
-    - [Barcode types support](#barcode-types-support)
     - [Switch front/back camera](#switch-to-front-camera)
+    - [Barcode types support](#barcode-types-support)
+    - [Test on iOS simulator](#test-on-ios-simulator)
 - [How to use barcode generator view](#how-to-use-barcode-generator-view)
     - [Barcode type you can generate](#barcode-type-you-can-generate)
     - [Rotate your barcode](#rotate-your-barcode)
@@ -35,7 +39,7 @@ The preferred way of installing SwiftUIX is via the [Swift Package Manager](http
 
 1. In Xcode, open your project and navigate to **File** → **Swift Packages** → **Add Package Dependency...**
 2. Paste the repository URL (`https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI`) and click **Next**.
-3. For **Rules**, select **Branch** (with branch set to `2.0.1` ).
+3. For **Rules**, select **Branch** (with branch set to `2.1.0` ).
 4. Click **Finish**.
 
 # Example project
@@ -53,6 +57,7 @@ CarBode-Barcode-Scanner-For-SwiftUI/ExampleProject/ExampleProject.xcodeproj
 <string>This app needs access to the camera, to be able to read barcodes.</string>
 ```
 
+# Simple Scanner
 ```Swift
 import SwiftUI
 import CarBode
@@ -72,6 +77,44 @@ struct ContentView: View {
                 print("Barcode Type is", $0.type.rawValue)
             }
 
+    }
+}
+```
+
+# Draw box around the barcode
+```Swift
+import SwiftUI
+import CarBode
+import AVFoundation //import to access barcode types you want to scan
+
+struct ContentView: View {
+    var body: some View {
+        VStack{
+        CBScanner(
+                supportBarcode: .constant([.qr, .code128]), //Set type of barcode you want to scan
+                scanInterval: .constant(5.0) //Event will trigger every 5 seconds
+            ){
+                //When the scanner found a barcode
+                print($0.value)
+                print("Barcode Type is", $0.type.rawValue)
+            }
+            onDraw: {
+                print("Preview View Size = \($0.cameraPreviewView.bounds)")
+                print("Barcode Corners = \($0.corners)")
+                
+                //line width
+                let lineWidth = 2 
+
+                //line color
+                let lineColor = UIColor.red 
+
+                //Fill color with opacity
+                //You also can use UIColor.clear if you don't want to draw fill color
+                let fillColor = UIColor(red: 0, green: 1, blue: 0.2, alpha: 0.4)
+                
+                //Draw box
+                $0.draw(lineWidth: lineWidth, lineColor: lineColor, fillColor: fillColor)
+            }
     }
 }
 ```
@@ -242,6 +285,8 @@ CBBarcodeView(data: ..... ,
 CarBode welcomes contributions in the form of GitHub issues and pull-requests.
 
 ## Changelog
+    - 2.1.0 You can draw a box around the barcode
+    - 2.0.1 Fixed bugs
     - 2.0.0 I learned many more things about SwiftUI then I decide to restructure the scanner I hope you will like it. And this version you can switch front and back camera.
     - 1.5.0 Fixed bugs and you can read the barcode type when scanner found it
     - 1.4.0 Rename component and add new barcode generator view component
