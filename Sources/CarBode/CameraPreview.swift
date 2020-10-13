@@ -273,22 +273,60 @@ extension CameraPreview {
      */
     func convertToViewCoordinate(point: CGPoint) -> CGPoint {
         let orientation = getVideoOrientation()
-        
-        let scale =  self.bounds.width / 1280
-        let previewWidth = 1280 * scale
-        let previewHeight = 720 * scale
-        
-        let croppedFrameY = previewHeight / 2 - self.bounds.height / 2
-        
-        let pointX = point.x * previewWidth
-        let pointY = (point.y * previewHeight) - croppedFrameY
-        
-        
-        
-        
-        return CGPoint(x: pointX , y: pointY)
-    }
 
+        var pointX: CGFloat = 0
+        var pointY: CGFloat = 0
+
+        switch orientation {
+        case .portrait:
+            let scale = self.bounds.width / 720
+            let previewWidth = 720  * scale
+            let previewHeight = 1280 * scale
+
+            let croppedFrameY = previewHeight / 2 - self.bounds.height / 2
+
+            let x = 1.0 - point.y
+            let y = point.x
+            
+            pointX = x * previewWidth
+            pointY = (y * previewHeight) - croppedFrameY
+        case .landscapeRight:
+            let scale = self.bounds.width / 1280
+            let previewWidth = 1280 * scale
+            let previewHeight = 720 * scale
+
+            let croppedFrameY = previewHeight / 2 - self.bounds.height / 2
+
+            pointX = point.x * previewWidth
+            pointY = (point.y * previewHeight) - croppedFrameY
+        case .landscapeLeft:
+            let scale = self.bounds.width / 1280
+            let previewWidth = 1280 * scale
+            let previewHeight = 720 * scale
+
+            let croppedFrameY = previewHeight / 2 - self.bounds.height / 2
+            
+            let x = 1.0 - point.x
+            let y = 1.0 - point.y
+            
+            pointX = x * previewWidth
+            pointY = (y * previewHeight) - croppedFrameY
+        case .portraitUpsideDown:
+            let scale = self.bounds.width / 720
+            let previewWidth = 720 * scale
+            let previewHeight =  1280 * scale
+
+            let croppedFrameY = previewHeight / 2 - self.bounds.height / 2
+            
+            let x = 1.0 - point.y
+            let y = point.x
+            
+            pointX = x * previewWidth
+            pointY = (y * previewHeight) - croppedFrameY
+        }
+
+        return CGPoint(x: pointX, y: pointY)
+    }
 
     func drawFrame(corners: [CGPoint], lineWidth: CGFloat = 1, lineColor: UIColor = UIColor.red, fillColor: UIColor = UIColor.clear) -> Void {
 
@@ -300,7 +338,7 @@ extension CameraPreview {
 
         corners.forEach {
             let pnt = convertToViewCoordinate(point: $0)
-            
+
             if first {
                 first = false
                 bezierPath.move(to: pnt)
