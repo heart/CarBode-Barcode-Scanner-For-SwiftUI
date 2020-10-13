@@ -39,7 +39,7 @@ The preferred way of installing SwiftUIX is via the [Swift Package Manager](http
 
 1. In Xcode, open your project and navigate to **File** → **Swift Packages** → **Add Package Dependency...**
 2. Paste the repository URL (`https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI`) and click **Next**.
-3. For **Rules**, select **Branch** (with branch set to `2.0.1` ).
+3. For **Rules**, select **Branch** (with branch set to `2.1.0` ).
 4. Click **Finish**.
 
 # Example project
@@ -286,6 +286,7 @@ CarBode welcomes contributions in the form of GitHub issues and pull-requests.
 
 ## Changelog
     - 2.1.0 You can draw a box around the barcode
+    - 2.0.1 Fixed bugs
     - 2.0.0 I learned many more things about SwiftUI then I decide to restructure the scanner I hope you will like it. And this version you can switch front and back camera.
     - 1.5.0 Fixed bugs and you can read the barcode type when scanner found it
     - 1.4.0 Rename component and add new barcode generator view component
