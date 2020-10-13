@@ -20,7 +20,7 @@
 - [Example project](#example-project)
 - [How to use scanner view](#how-to-use-scanner-view)
     - [Add camera usage description to `info.plist`](#add-camera-usage-description-to-your-infoplist)
-    - [Simple Sscanner](#simple-scanner)
+    - [Simple Scanner](#simple-scanner)
     - [Draw box around the barcode](#draw-box-around-the-barcode)
     - [torch light on/off](#how-to-turn-torch-light-onoff)
     - [Switch front/back camera](#switch-to-front-camera)
