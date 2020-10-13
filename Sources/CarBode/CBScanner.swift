@@ -14,7 +14,7 @@ import AVFoundation
 public struct CBScanner: UIViewRepresentable {
 
     public typealias OnFound = (BarcodeData)->Void
-    public typealias OnDraw = ()->BarcodeFrame?
+    public typealias OnDraw = (BarcodeFrame)->Void
     
     public typealias UIViewType = CameraPreview
     

@@ -30,6 +30,8 @@ public class CameraPreview: UIView {
     var selectedCamera: AVCaptureDevice?
 
     var torchLightIsOn: Bool = false
+    
+    var removeFrameTimer:Timer?
 
     init() {
         super.init(frame: .zero)
@@ -235,13 +237,14 @@ extension CameraPreview: AVCaptureMetadataOutputObjectsDelegate {
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
 
-            if let barcodeFrame = onDraw?() {
-
-                drawFrame(corners: readableObject.corners,
-                    lineWidth: barcodeFrame.lineWidth,
-                    lineColor: barcodeFrame.lineColor,
-                    fillColor: barcodeFrame.fillColor)
+            var corners: [CGPoint] = []
+            readableObject.corners.forEach {
+                let point = convertToViewCoordinate(point: $0)
+                corners.append(point)
             }
+
+            let frame = BarcodeFrame(corners: corners, cameraPreviewView: self)
+            onDraw?(frame)
 
             if let stringValue = readableObject.stringValue {
                 let barcode = BarcodeData(value: stringValue, type: readableObject.type)
@@ -261,16 +264,6 @@ extension CameraPreview: AVCaptureMetadataOutputObjectsDelegate {
 
 
 extension CameraPreview {
-
-    /*
-     case portrait = 1
-
-     case portraitUpsideDown = 2
-
-     case landscapeRight = 3
-
-     case landscapeLeft = 4
-     */
     func convertToViewCoordinate(point: CGPoint) -> CGPoint {
         let orientation = getVideoOrientation()
 
@@ -280,14 +273,14 @@ extension CameraPreview {
         switch orientation {
         case .portrait:
             let scale = self.bounds.width / 720
-            let previewWidth = 720  * scale
+            let previewWidth = 720 * scale
             let previewHeight = 1280 * scale
 
             let croppedFrameY = previewHeight / 2 - self.bounds.height / 2
 
             let x = 1.0 - point.y
             let y = point.x
-            
+
             pointX = x * previewWidth
             pointY = (y * previewHeight) - croppedFrameY
         case .landscapeRight:
@@ -305,31 +298,41 @@ extension CameraPreview {
             let previewHeight = 720 * scale
 
             let croppedFrameY = previewHeight / 2 - self.bounds.height / 2
-            
+
             let x = 1.0 - point.x
             let y = 1.0 - point.y
-            
+
             pointX = x * previewWidth
             pointY = (y * previewHeight) - croppedFrameY
         case .portraitUpsideDown:
             let scale = self.bounds.width / 720
             let previewWidth = 720 * scale
-            let previewHeight =  1280 * scale
+            let previewHeight = 1280 * scale
 
             let croppedFrameY = previewHeight / 2 - self.bounds.height / 2
-            
+
             let x = 1.0 - point.y
             let y = point.x
-            
+
             pointX = x * previewWidth
             pointY = (y * previewHeight) - croppedFrameY
+        @unknown default:
+            pointX = 0
+            pointY = 0
         }
 
         return CGPoint(x: pointX, y: pointY)
     }
+    
+    @objc func removeBarcodeFrame() {
+        shapeLayer?.removeFromSuperlayer()
+    }
 
     func drawFrame(corners: [CGPoint], lineWidth: CGFloat = 1, lineColor: UIColor = UIColor.red, fillColor: UIColor = UIColor.clear) -> Void {
-
+        
+        removeFrameTimer?.invalidate()
+        removeFrameTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(removeBarcodeFrame), userInfo: nil, repeats: false)
+        
         if shapeLayer != nil {
             shapeLayer?.removeFromSuperlayer()
         }
@@ -337,21 +340,18 @@ extension CameraPreview {
         var first = true
 
         corners.forEach {
-            let pnt = convertToViewCoordinate(point: $0)
-
             if first {
                 first = false
-                bezierPath.move(to: pnt)
+                bezierPath.move(to: $0)
             } else {
-                bezierPath.addLine(to: pnt)
+                bezierPath.addLine(to: $0)
             }
         }
 
         if corners.count > 0 {
-            let pnt = convertToViewCoordinate(point: corners[0])
+            let pnt = corners[0]
             bezierPath.addLine(to: pnt)
         }
-
 
         shapeLayer?.frame = self.bounds
         shapeLayer = CAShapeLayer()

@@ -57,8 +57,19 @@ struct ModalScannerView: View {
                 cameraPosition: $cameraPosition
             ){
                 print($0)
+            }
+            onDraw: {
+                print("Preview View Size = \($0.cameraPreviewView.bounds)")
+                print("Barcode Corners = \($0.corners)")
+                
+                let lineColor = UIColor.green
+                let fillColor = UIColor(red: 0, green: 1, blue: 0.2, alpha: 0.4)
+                
+                //Draw Barcode corner
+                $0.draw(lineWidth: 1, lineColor: lineColor, fillColor: fillColor)
+                
             }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 400, maxHeight: 400, alignment: .topLeading)
-        
+            
             Spacer()
 
             Text(barcodeValue)
