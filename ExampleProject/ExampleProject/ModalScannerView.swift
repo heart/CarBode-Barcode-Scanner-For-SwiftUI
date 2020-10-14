@@ -57,7 +57,7 @@ struct ModalScannerView: View {
                 cameraPosition: $cameraPosition,
                 mockBarCode: .constant(BarcodeData(value:"My Test Data", type: .qr))
             ){
-                print($0)
+                print("BarCodeType =",$0.type.rawValue, "Value =",$0.value)
             }
             onDraw: {
                 print("Preview View Size = \($0.cameraPreviewView.bounds)")
