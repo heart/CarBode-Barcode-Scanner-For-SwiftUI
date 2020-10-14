@@ -39,7 +39,7 @@ The preferred way of installing SwiftUIX is via the [Swift Package Manager](http
 
 1. In Xcode, open your project and navigate to **File** → **Swift Packages** → **Add Package Dependency...**
 2. Paste the repository URL (`https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI`) and click **Next**.
-3. For **Rules**, select **Branch** (with branch set to `2.1.0` ).
+3. For **Rules**, select **Branch** (with branch set to `2.1.1` ).
 4. Click **Finish**.
 
 # Example project
@@ -73,8 +73,7 @@ struct ContentView: View {
                 scanInterval: .constant(5.0) //Event will trigger every 5 seconds
             ){
                 //When the scanner found a barcode
-                print($0.value)
-                print("Barcode Type is", $0.type.rawValue)
+                print("BarCodeType =",$0.type.rawValue, "Value =",$0.value)
             }
 
     }
@@ -95,8 +94,7 @@ struct ContentView: View {
                 scanInterval: .constant(5.0) //Event will trigger every 5 seconds
             ){
                 //When the scanner found a barcode
-                print($0.value)
-                print("Barcode Type is", $0.type.rawValue)
+                print("BarCodeType =",$0.type.rawValue, "Value =",$0.value)
             }
             onDraw: {
                 print("Preview View Size = \($0.cameraPreviewView.bounds)")
@@ -145,8 +143,7 @@ struct ContentView: View {
                 torchLightIsOn: $torchIsOn // Bind a Bool to enable/disable torch light
             ){
                 //When the scanner found a barcode
-                print($0.value)
-                print("Barcode Type is", $0.type.rawValue)
+                print("BarCodeType =",$0.type.rawValue, "Value =",$0.value)
             }
         }
     }
@@ -191,8 +188,7 @@ struct ContentView: View {
                 cameraPosition: $cameraPosition  //Bind to switch front/back camera
             ){
                 //When the scanner found a barcode
-                print($0.value)
-                print("Barcode Type is", $0.type.rawValue)
+                print("BarCodeType =",$0.type.rawValue, "Value =",$0.value)
             }
         }
     }
@@ -213,8 +209,7 @@ No need to remove the mock barcode from the production app it will only use for 
         mockBarCode: .constant(BarcodeData(value:"Mocking data", type: .qr))
     ){
         //When you click the button on screen mock data will appear here
-        print($0.value)
-        print("Barcode Type is", $0.type.rawValue)
+        print("BarCodeType =",$0.type.rawValue, "Value =",$0.value)
     }
 ```
 
@@ -285,6 +280,7 @@ CBBarcodeView(data: ..... ,
 CarBode welcomes contributions in the form of GitHub issues and pull-requests.
 
 ## Changelog
+    - 2.1.1 Fixed bugs
     - 2.1.0 You can draw a box around the barcode
     - 2.0.1 Fixed bugs
     - 2.0.0 I learned many more things about SwiftUI then I decide to restructure the scanner I hope you will like it. And this version you can switch front and back camera.
