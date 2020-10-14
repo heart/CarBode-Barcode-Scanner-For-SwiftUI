@@ -210,7 +210,7 @@ No need to remove the mock barcode from the production app it will only use for 
     CBScanner(
         supportBarcode: .constant([.qr, .code128]), //Set type of barcode you want to scan
         scanInterval: .constant(5.0), //Event will trigger every 5 seconds
-        mockBarCode: BarcodeData(value:"Mocking data", type: .qr)
+        mockBarCode: .constant(BarcodeData(value:"Mocking data", type: .qr))
     ){
         //When you click the button on screen mock data will appear here
         print($0.value)

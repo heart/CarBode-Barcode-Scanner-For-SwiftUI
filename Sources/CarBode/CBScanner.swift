@@ -60,6 +60,7 @@ public struct CBScanner: UIViewRepresentable {
         view.setupScanner()
         view.onFound = onFound
         view.onDraw = onDraw
+        view.mockBarCode = mockBarCode
         return view
     }
 

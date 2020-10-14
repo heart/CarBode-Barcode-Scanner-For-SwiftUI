@@ -54,7 +54,8 @@ struct ModalScannerView: View {
             CBScanner(
                 supportBarcode: .constant([.qr, .code128]),
                 torchLightIsOn: $torchIsOn,
-                cameraPosition: $cameraPosition
+                cameraPosition: $cameraPosition,
+                mockBarCode: .constant(BarcodeData(value:"My Test Data", type: .qr))
             ){
                 print($0)
             }

@@ -30,8 +30,8 @@ public class CameraPreview: UIView {
     var selectedCamera: AVCaptureDevice?
 
     var torchLightIsOn: Bool = false
-    
-    var removeFrameTimer:Timer?
+
+    var removeFrameTimer: Timer?
 
     init() {
         super.init(frame: .zero)
@@ -237,14 +237,15 @@ extension CameraPreview: AVCaptureMetadataOutputObjectsDelegate {
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
 
-            var corners: [CGPoint] = []
-            readableObject.corners.forEach {
-                let point = convertToViewCoordinate(point: $0)
-                corners.append(point)
-            }
-
-            let frame = BarcodeFrame(corners: corners, cameraPreviewView: self)
-            onDraw?(frame)
+            #if !targetEnvironment(simulator)
+                var corners: [CGPoint] = []
+                readableObject.corners.forEach {
+                    let point = convertToViewCoordinate(point: $0)
+                    corners.append(point)
+                }
+                let frame = BarcodeFrame(corners: corners, cameraPreviewView: self)
+                onDraw?(frame)
+            #endif
 
             if let stringValue = readableObject.stringValue {
                 let barcode = BarcodeData(value: stringValue, type: readableObject.type)
@@ -323,16 +324,16 @@ extension CameraPreview {
 
         return CGPoint(x: pointX, y: pointY)
     }
-    
+
     @objc func removeBarcodeFrame() {
         shapeLayer?.removeFromSuperlayer()
     }
 
     func drawFrame(corners: [CGPoint], lineWidth: CGFloat = 1, lineColor: UIColor = UIColor.red, fillColor: UIColor = UIColor.clear) -> Void {
-        
+
         removeFrameTimer?.invalidate()
         removeFrameTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(removeBarcodeFrame), userInfo: nil, repeats: false)
-        
+
         if shapeLayer != nil {
             shapeLayer?.removeFromSuperlayer()
         }
