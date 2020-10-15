@@ -10,6 +10,45 @@ import SwiftUI
 import CarBode
 import AVFoundation
 
+struct cameraFrame: Shape {
+    func path(in rect: CGRect) -> Path {
+        Path { path in
+            let width = rect.width
+            let height = rect.height
+            
+            path.addLines( [
+                
+                CGPoint(x: 0, y: height * 0.25),
+                CGPoint(x: 0, y: 0),
+                CGPoint(x:width * 0.25, y:0)
+            ])
+            
+            path.addLines( [
+                
+                CGPoint(x: width * 0.75, y: 0),
+                CGPoint(x: width, y: 0),
+                CGPoint(x:width, y:height * 0.25)
+            ])
+            
+            path.addLines( [
+                
+                CGPoint(x: width, y: height * 0.75),
+                CGPoint(x: width, y: height),
+                CGPoint(x:width * 0.75, y: height)
+            ])
+            
+            path.addLines( [
+                
+                CGPoint(x:width * 0.25, y: height),
+                CGPoint(x:0, y: height),
+                CGPoint(x:0, y:height * 0.75)
+               
+            ])
+            
+        }
+    }
+}
+
 struct ModalScannerView: View {
     @State var barcodeValue = ""
     @State var torchIsOn = false
@@ -70,6 +109,10 @@ struct ModalScannerView: View {
                 $0.draw(lineWidth: 1, lineColor: lineColor, fillColor: fillColor)
                 
             }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 400, maxHeight: 400, alignment: .topLeading)
+                .overlay(cameraFrame()
+                            .stroke(lineWidth: 5)
+                            .frame(width: 500, height: 250)
+                            .foregroundColor(.blue))
             
             Spacer()
 
