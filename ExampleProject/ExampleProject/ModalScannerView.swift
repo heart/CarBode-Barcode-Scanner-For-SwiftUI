@@ -36,9 +36,9 @@ struct ModalScannerView: View {
                 }
             }) {
                 if cameraPosition == .back{
-                    Text("Swicth Camera to Front")
+                    Text("Switch Camera to Front")
                 }else{
-                    Text("Swicth Camera to Back")
+                    Text("Switch Camera to Back")
                 }
             }
             
