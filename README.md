@@ -39,7 +39,7 @@ The preferred way of installing SwiftUIX is via the [Swift Package Manager](http
 
 1. In Xcode, open your project and navigate to **File** → **Swift Packages** → **Add Package Dependency...**
 2. Paste the repository URL (`https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI`) and click **Next**.
-3. For **Rules**, select **Branch** (with branch set to `2.1.1` ).
+3. For **Rules**, select **Branch** (with branch set to `2.1.2` ).
 4. Click **Finish**.
 
 # Example project
@@ -280,6 +280,7 @@ CBBarcodeView(data: ..... ,
 CarBode welcomes contributions in the form of GitHub issues and pull-requests.
 
 ## Changelog
+    - 2.1.2 When scan on difference barcode scanner will ignore the delay time
     - 2.1.1 Fixed bugs
     - 2.1.0 You can draw a box around the barcode
     - 2.0.1 Fixed bugs
