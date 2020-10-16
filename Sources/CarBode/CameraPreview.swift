@@ -32,6 +32,8 @@ public class CameraPreview: UIView {
     var torchLightIsOn: Bool = false
 
     var removeFrameTimer: Timer?
+    
+    var lastScannedBarcode: BarcodeData?
 
     init() {
         super.init(frame: .zero)
@@ -256,9 +258,16 @@ extension CameraPreview: AVCaptureMetadataOutputObjectsDelegate {
 
     func foundBarcode(_ barcode: BarcodeData) {
         let now = Date()
-        if now.timeIntervalSince(lastTime) >= scanInterval {
+        
+        //When scan on difference barcode scanner will ignore the delay time
+        if lastScannedBarcode?.value != barcode.value {
             lastTime = now
             onFound?(barcode)
+            lastScannedBarcode = barcode
+        }else if now.timeIntervalSince(lastTime) >= scanInterval {
+            lastTime = now
+            onFound?(barcode)
+            lastScannedBarcode = barcode
         }
     }
 }

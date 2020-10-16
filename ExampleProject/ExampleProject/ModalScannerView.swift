@@ -97,6 +97,7 @@ struct ModalScannerView: View {
                 mockBarCode: .constant(BarcodeData(value:"My Test Data", type: .qr))
             ){
                 print("BarCodeType =",$0.type.rawValue, "Value =",$0.value)
+                barcodeValue = $0.value
             }
             onDraw: {
                 print("Preview View Size = \($0.cameraPreviewView.bounds)")
@@ -104,7 +105,6 @@ struct ModalScannerView: View {
                 
                 let lineColor = UIColor.green
                 let fillColor = UIColor(red: 0, green: 1, blue: 0.2, alpha: 0.4)
-                
                 //Draw Barcode corner
                 $0.draw(lineWidth: 1, lineColor: lineColor, fillColor: fillColor)
                 
@@ -117,6 +117,8 @@ struct ModalScannerView: View {
             Spacer()
 
             Text(barcodeValue)
+            
+            Spacer()
 
         }.alert(isPresented: $showingAlert) {
             Alert(title: Text("Found Barcode"), message: Text("\(barcodeValue)"), dismissButton: .default(Text("Close")))
