@@ -12,6 +12,7 @@ import SwiftUI
 public struct CBBarcodeView: UIViewRepresentable {
     
     public typealias UIViewType = BarcodeView
+    public typealias OnBarcodeGenerated = (UIImage)->Void
     
     public enum BarcodeType: String {
         case qrCode = "CIQRCodeGenerator"
@@ -30,19 +31,25 @@ public struct CBBarcodeView: UIViewRepresentable {
     @Binding public var data: String
     @Binding public var barcodeType: BarcodeType
     @Binding public var orientation: Orientation
+    
+    private var onGenerated: OnBarcodeGenerated?
 
     public init(data: Binding<String>,
         barcodeType: Binding<BarcodeType>,
-        orientation: Binding<Orientation>) {
+        orientation: Binding<Orientation>,
+        onGenerated: OnBarcodeGenerated?
+        ) {
 
         self._data = data
         self._barcodeType = barcodeType
         self._orientation = orientation
-        
+        self.onGenerated = onGenerated
     }
-
+    
     public func makeUIView(context: UIViewRepresentableContext<CBBarcodeView>) -> CBBarcodeView.UIViewType {
-        return BarcodeView()
+        let view = BarcodeView()
+        view.onGenerated = self.onGenerated
+        return view
     }
 
     public func updateUIView(_ uiView: BarcodeView, context: UIViewRepresentableContext<CBBarcodeView>) {
@@ -58,6 +65,7 @@ public class BarcodeView: UIImageView {
     
     private var data:String?
     private var barcodeType: CBBarcodeView.BarcodeType?
+    var onGenerated: CBBarcodeView.OnBarcodeGenerated?
     
     func gen(data: String?, barcodeType: CBBarcodeView.BarcodeType) {
         guard let string = data, !string.isEmpty else {
@@ -81,6 +89,12 @@ public class BarcodeView: UIImageView {
 
         let newImage = UIImage(ciImage: scaledImage!)
         self.image = newImage
+        
+        if let img = self.image {
+            DispatchQueue.main.async {
+                self.onGenerated?(img)
+            }
+        }
     }
     
     override public func layoutSubviews() {
