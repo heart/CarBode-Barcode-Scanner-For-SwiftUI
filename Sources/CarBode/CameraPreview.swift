@@ -161,18 +161,21 @@ public class CameraPreview: UIView {
                 }
 
                 previewLayer?.removeFromSuperlayer()
-                let previewLayer = AVCaptureVideoPreviewLayer(session: session)
-
-                self.backgroundColor = UIColor.gray
-                previewLayer.videoGravity = .resizeAspectFill
-                self.layer.addSublayer(previewLayer)
-                self.previewLayer = previewLayer
-
-                session.startRunning()
-
                 self.session = session
-                self.previewLayer = previewLayer
                 self.selectedCamera = selectedCamera
+                self.backgroundColor = UIColor.gray
+                
+                DispatchQueue.global().async {
+                    session.startRunning()
+                    DispatchQueue.main.async {
+                        let previewLayer = AVCaptureVideoPreviewLayer(session: session)
+                        previewLayer.videoGravity = .resizeAspectFill
+                        self.layer.addSublayer(previewLayer)
+                        
+                        self.previewLayer = previewLayer
+                    }
+                }
+                
             }
         }
     }
