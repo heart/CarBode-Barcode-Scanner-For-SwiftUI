@@ -106,7 +106,7 @@ public class CameraPreview: UIView {
 
     func setTorchLight(isOn: Bool) {
 
-        if torchLightIsOn == isOn { return }
+        //if torchLightIsOn == isOn { return }
 
         torchLightIsOn = isOn
         if let camera = selectedCamera {
