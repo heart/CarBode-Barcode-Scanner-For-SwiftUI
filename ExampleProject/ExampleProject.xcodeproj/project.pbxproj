@@ -372,7 +372,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI";
 			requirement = {
-				branch = master;
+				branch = develop;
 				kind = branch;
 			};
 		};
