@@ -174,6 +174,7 @@ public class CameraPreview: UIView {
                         self.layer.addSublayer(previewLayer)
                         
                         self.previewLayer = previewLayer
+                        self.updateCameraView()
                     }
                 }
                 
