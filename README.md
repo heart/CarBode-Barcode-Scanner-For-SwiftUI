@@ -2,7 +2,7 @@
 
 <img src="./logo/coffee.png" height="100">
 
-[Buy me a coffee.](#donate)
+[Buy me a coffee.](#donate-to-support-this-project)
 
 ---
 
