@@ -12,7 +12,7 @@ import SwiftUI
 public struct CBBarcodeView: UIViewRepresentable {
     
     public typealias UIViewType = BarcodeView
-    public typealias OnBarcodeGenerated = (UIImage)->Void
+    public typealias OnBarcodeGenerated = (UIImage?)->Void
     
     public enum BarcodeType: String {
         case qrCode = "CIQRCodeGenerator"
@@ -76,23 +76,32 @@ public class BarcodeView: UIImageView {
         self.data = data
         self.barcodeType = barcodeType
 
-        let data = string.data(using: String.Encoding.ascii)
+        let data = string.data(using: String.Encoding.utf8)
         let filter = CIFilter(name: barcodeType.rawValue)!
         filter.setValue(data, forKey: "inputMessage")
         let output = filter.outputImage
-
-        let scaleX = self.bounds.width / output!.extent.size.width
-        let scaleY = self.bounds.height / output!.extent.size.height
+        
+        let extWidth:CGFloat = output?.extent.size.width ?? 0.0
+        let extHeight:CGFloat = output?.extent.size.height ?? 0.0
+        
+        let scaleX = self.bounds.width / extWidth
+        let scaleY = self.bounds.height / extHeight
 
         let transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
         let scaledImage = output?.transformed(by: transform)
-
-        let newImage = UIImage(ciImage: scaledImage!)
-        self.image = newImage
         
-        if let img = self.image {
+        if let scaledImage = scaledImage {
+            let newImage = UIImage(ciImage: scaledImage)
+            self.image = newImage
+            
+            if let img = self.image {
+                DispatchQueue.main.async {
+                    self.onGenerated?(img)
+                }
+            }
+        }else{
             DispatchQueue.main.async {
-                self.onGenerated?(img)
+                self.onGenerated?(nil)
             }
         }
     }
