@@ -29,6 +29,6 @@ let package = Package(
             dependencies: ["CarBode"]),
     ],
     swiftLanguageVersions: [
-        .version("5.1")
+        .version("5.5")
     ]
 )
