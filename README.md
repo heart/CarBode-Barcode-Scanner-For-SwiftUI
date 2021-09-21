@@ -309,7 +309,7 @@ CarBode welcomes contributions in the form of GitHub issues and pull-requests.
     - 1.2.0 Add feature allows to turn torch light on or off.
     - 1.0.1 Fixed bug camera delay 10 seconds when use on modal.
 
-# Donation
+# Donate to support this project
 
 <img src="./logo/paypal.png" width="80">
 
