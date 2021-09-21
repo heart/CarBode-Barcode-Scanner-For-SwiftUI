@@ -1,14 +1,20 @@
 ![CarBode](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/logo.png)
 
-[![DonateLink](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/donate_btn.png)](https://www.paypal.com/paypalme/iamheart/35?locale.x=th_TH)
+<img src="./logo/coffee.png" height="100">
+
+[Buy me a coffee.](#donation)
+
+---
 
 # CarBode
+
 ## Free and Opensource Barcode scanner &amp; Barcode generator for swiftUI
 
 ![CarBodeDemo](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/demo.gif)
 
 # Why you must use CarBode
-1. CarBode have both Barcode Scanner and Barcode Generator 
+
+1. CarBode have both Barcode Scanner and Barcode Generator
 1. CarBode is a lightweight components
 1. CarBode build on AVFoundation it will supported all of barcodes types that AVFoundation supported
 1. CarBode can turn on the torch light and it can toggle between front and back camera
@@ -16,26 +22,28 @@
 ![Supported Barcode](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/barcode_type.jpg)
 
 ## index
+
 - [Installation](#installation)
 - [Example project](#example-project)
 - [How to use scanner view](#how-to-use-scanner-view)
-    - [Add camera usage description to `info.plist`](#add-camera-usage-description-to-your-infoplist)
-    - [Simple Scanner](#simple-scanner)
-    - [Draw box around the barcode](#draw-box-around-the-barcode)
-    - [torch light on/off](#how-to-turn-torch-light-onoff)
-    - [Switch front/back camera](#switch-to-front-camera)
-    - [Barcode types support](#barcode-types-support)
-    - [Test on iOS simulator](#test-on-ios-simulator)
+  - [Add camera usage description to `info.plist`](#add-camera-usage-description-to-your-infoplist)
+  - [Simple Scanner](#simple-scanner)
+  - [Draw box around the barcode](#draw-box-around-the-barcode)
+  - [torch light on/off](#how-to-turn-torch-light-onoff)
+  - [Switch front/back camera](#switch-to-front-camera)
+  - [Barcode types support](#barcode-types-support)
+  - [Test on iOS simulator](#test-on-ios-simulator)
 - [How to use barcode generator view](#how-to-use-barcode-generator-view)
-    - [Barcode type you can generate](#barcode-type-you-can-generate)
-    - [Rotate your barcode](#rotate-your-barcode)
+  - [Barcode type you can generate](#barcode-type-you-can-generate)
+  - [Rotate your barcode](#rotate-your-barcode)
 - [How to contributing](#contributing)
 - [Version Change logs](#changelog)
 
 # Installation
+
 The preferred way of installing SwiftUIX is via the [Swift Package Manager](https://swift.org/package-manager/).
 
->Xcode 11 integrates with libSwiftPM to provide support for iOS, watchOS, and tvOS platforms.
+> Xcode 11 integrates with libSwiftPM to provide support for iOS, watchOS, and tvOS platforms.
 
 1. In Xcode, open your project and navigate to **File** → **Swift Packages** → **Add Package Dependency...**
 2. Paste the repository URL (`https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI`) and click **Next**.
@@ -43,21 +51,24 @@ The preferred way of installing SwiftUIX is via the [Swift Package Manager](http
 4. Click **Finish**.
 
 # Example project
+
 CarBode-Barcode-Scanner-For-SwiftUI/ExampleProject/ExampleProject.xcodeproj
 
 ![Carbode Example project](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/example_project.png)
 
-
 # How to use Scanner View
+
 ![SwiftUI QRCode Scanner](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/scan.png)
 
 ## Add camera usage description to your `info.plist`
-``` XML
+
+```XML
 <key>NSCameraUsageDescription</key>
 <string>This app needs access to the camera, to be able to read barcodes.</string>
 ```
 
 # Simple Scanner
+
 ```Swift
 import SwiftUI
 import CarBode
@@ -81,6 +92,7 @@ struct ContentView: View {
 ```
 
 # Draw box around the barcode
+
 ```Swift
 import SwiftUI
 import CarBode
@@ -99,17 +111,17 @@ struct ContentView: View {
             onDraw: {
                 print("Preview View Size = \($0.cameraPreviewView.bounds)")
                 print("Barcode Corners = \($0.corners)")
-                
+
                 //line width
-                let lineWidth = 2 
+                let lineWidth = 2
 
                 //line color
-                let lineColor = UIColor.red 
+                let lineColor = UIColor.red
 
                 //Fill color with opacity
                 //You also can use UIColor.clear if you don't want to draw fill color
                 let fillColor = UIColor(red: 0, green: 1, blue: 0.2, alpha: 0.4)
-                
+
                 //Draw box
                 $0.draw(lineWidth: lineWidth, lineColor: lineColor, fillColor: fillColor)
             }
@@ -118,6 +130,7 @@ struct ContentView: View {
 ```
 
 # How to turn torch light on/off
+
 ```Swift
 import SwiftUI
 import CarBode
@@ -134,9 +147,9 @@ struct ContentView: View {
         }) {
             Text("Toggle Torch Light")
         }
-            
+
         Spacer()
-        
+
         CBScanner(
                 supportBarcode: .constant([.qr, .code128]), //Set type of barcode you want to scan
                 scanInterval: .constant(5.0), //Event will trigger every 5 seconds
@@ -151,6 +164,7 @@ struct ContentView: View {
 ```
 
 # Switch to front camera
+
 ```swift
 import SwiftUI
 import CarBode
@@ -178,13 +192,13 @@ struct ContentView: View {
                 Text("Swicth Camera to Back")
             }
         }
-            
+
         Spacer()
-        
+
         CBScanner(
                 supportBarcode: .constant([.qr, .code128]), //Set type of barcode you want to scan
                 scanInterval: .constant(5.0), //Event will trigger every 5 seconds
-                
+
                 cameraPosition: $cameraPosition  //Bind to switch front/back camera
             ){
                 //When the scanner found a barcode
@@ -202,6 +216,7 @@ The iOS simulator doesn't support the camera yet
 but you can set a mock barcode for iOS simulator.
 
 No need to remove the mock barcode from the production app it will only use for iOS simulator.
+
 ```Swift
     CBScanner(
         supportBarcode: .constant([.qr, .code128]), //Set type of barcode you want to scan
@@ -214,15 +229,15 @@ No need to remove the mock barcode from the production app it will only use for 
 ```
 
 ## Barcode Types Support
-Read here [https://developer.apple.com/documentation/avfoundation/avmetadataobject/objecttype](https://developer.apple.com/documentation/avfoundation/avmetadataobject/objecttype) 
 
-
-
+Read here [https://developer.apple.com/documentation/avfoundation/avmetadataobject/objecttype](https://developer.apple.com/documentation/avfoundation/avmetadataobject/objecttype)
 
 # How to use barcode generator view
+
 ![SwiftUI QRCode Scanner](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/generator.png)
 
 ## Example code
+
 ```Swift
 import SwiftUI
 
@@ -245,6 +260,7 @@ struct ModalBarcodeGenerator: View {
 ```
 
 # Barcode type you can generate
+
 ```Swift
 //QR Code
 // CBBarcodeView.BarcodeType.qrCode
@@ -262,6 +278,7 @@ CBBarcodeView(data: ..... ,
 ```
 
 # Rotate your barcode
+
 ```Swift
 /*Youcan rotate 4 directions
 CBBarcodeView.Orientation.up
@@ -280,6 +297,7 @@ CBBarcodeView(data: ..... ,
 CarBode welcomes contributions in the form of GitHub issues and pull-requests.
 
 ## Changelog
+
     - 2.1.2 When scan on difference barcode scanner will ignore the delay time
     - 2.1.1 Fixed bugs
     - 2.1.0 You can draw a box around the barcode
@@ -290,3 +308,29 @@ CarBode welcomes contributions in the form of GitHub issues and pull-requests.
     - 1.3.0 You can set a mock barcode when running with an iOS simulator.
     - 1.2.0 Add feature allows to turn torch light on or off.
     - 1.0.1 Fixed bug camera delay 10 seconds when use on modal.
+
+# Donation
+
+<img src="./logo/paypal.png" width="80">
+
+- [https://www.paypal.com/paypalme/iamheart/350?locale.x=th_TH](https://www.paypal.com/paypalme/iamheart/350?locale.x=th_TH)
+
+<img src="./logo/BNB.png" width="80">
+
+- 0xc5005BcB021603ae8a79edb45e5Da198Ac27951b
+
+<img src="./logo/ETH.png" width="80">
+
+- 0xc5005BcB021603ae8a79edb45e5Da198Ac27951b
+
+<img src="./logo/bitcoin.png" width="80">
+
+- bc1qqucwj9j9zwm9dvj4g0lh6yrmpws90vj6acle6j
+
+<img src="./logo/ada.png" width="80" >
+
+- addr1q9kk0w75tllgtu7kq30jx9wmvqrpwgqcx4dx2u8ejsyrfmtqeqr5f42ulvy6lv5nme6m07uwk2385ehsf6mgz54qmv0q48my6k
+
+<img src="./logo/dodge.png" width="80" >
+
+- DF3qeDFxnbg8cRVPLvxw3YmsR3CNmyBwzJ
