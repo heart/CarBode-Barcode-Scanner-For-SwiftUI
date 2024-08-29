@@ -8,17 +8,18 @@
 import Foundation
 import SwiftUI
 
-public enum BarcodeType: String {
-    case qrCode = "CIQRCodeGenerator"
-    case barcode128 = "CICode128BarcodeGenerator"
-    case aztecCode = "CIAztecCodeGenerator"
-    case PDF417 = "CIPDF417BarcodeGenerator"
-}
 
 public struct CBBarcodeView: UIViewRepresentable {
     
     public typealias UIViewType = BarcodeView
     public typealias OnBarcodeGenerated = (UIImage?)->Void
+    
+    public enum BarcodeType: String {
+        case qrCode = "CIQRCodeGenerator"
+        case barcode128 = "CICode128BarcodeGenerator"
+        case aztecCode = "CIAztecCodeGenerator"
+        case PDF417 = "CIPDF417BarcodeGenerator"
+    }
 
     public enum Orientation {
         case up
