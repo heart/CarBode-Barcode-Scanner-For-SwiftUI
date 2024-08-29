@@ -131,19 +131,17 @@ public class BarcodeView: UIImageView {
 
 private extension UIImage {
     func rotate(radians: Float) -> UIImage? {
-        var newSize = CGRect(origin: CGPoint.zero, size: self.size).applying(CGAffineTransform(rotationAngle: CGFloat(radians))).size
-        newSize.width = floor(newSize.width)
-        newSize.height = floor(newSize.height)
-
-        UIGraphicsBeginImageContextWithOptions(newSize, false, self.scale)
-        if let context = UIGraphicsGetCurrentContext() {
-            context.translateBy(x: newSize.width / 2, y: newSize.height / 2)
-            context.rotate(by: CGFloat(radians))
-            self.draw(in: CGRect(x: -self.size.width / 2, y: -self.size.height / 2, width: self.size.width, height: self.size.height))
-            let newImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            return newImage
+        let newSize = CGRect(origin: .zero, size: self.size)
+            .applying(CGAffineTransform(rotationAngle: CGFloat(radians)))
+            .size
+        let roundedSize = CGSize(width: floor(newSize.width), height: floor(newSize.height))
+        
+        let renderer = UIGraphicsImageRenderer(size: roundedSize)
+        return renderer.image { context in
+            context.cgContext.translateBy(x: roundedSize.width / 2, y: roundedSize.height / 2)
+            context.cgContext.rotate(by: CGFloat(radians))
+            self.draw(in: CGRect(x: -self.size.width / 2, y: -self.size.height / 2,
+                                 width: self.size.width, height: self.size.height))
         }
-        return nil
     }
 }
