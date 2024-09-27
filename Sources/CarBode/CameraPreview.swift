@@ -52,6 +52,8 @@ public class CameraPreview: UIView {
     }
 
     func setSupportedBarcode(supportBarcode: [AVMetadataObject.ObjectType]) {
+	
+	if self.supportBarcode == supportBarcode { return }
         self.supportBarcode = supportBarcode
 
         guard let session = session else { return }
