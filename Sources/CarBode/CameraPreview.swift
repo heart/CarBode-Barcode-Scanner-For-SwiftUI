@@ -89,7 +89,14 @@ public class CameraPreview: UIView {
             cameraInput = nil
         }
 
-        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: cameraPosition)
+        let deviceTypes: [AVCaptureDevice.DeviceType] = [
+	                        .builtInTripleCamera,
+	                        .builtInDualWideCamera,
+	                        .builtInDualCamera,
+	                        .builtInWideAngleCamera,
+        ]
+        
+        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: deviceTypes, mediaType: AVMediaType.video, position: cameraPosition)
 
         let camera = deviceDiscoverySession.devices.first
         if let selectedCamera = camera {
