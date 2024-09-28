@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 public struct BarcodeFrame {
     
     public let corners:[CGPoint]

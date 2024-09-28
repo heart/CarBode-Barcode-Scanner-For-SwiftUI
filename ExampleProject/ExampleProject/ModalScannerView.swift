@@ -52,6 +52,7 @@ struct cameraFrame: Shape {
 struct ModalScannerView: View {
     @State var barcodeValue = ""
     @State var torchIsOn = false
+    @State var zoom = 2.0
     @State var showingAlert = false
     @State var cameraPosition = AVCaptureDevice.Position.back
 
@@ -63,6 +64,15 @@ struct ModalScannerView: View {
             
             if cameraPosition == .back{
                 Text("Using back camera")
+                
+                Picker("Zoom", selection: $zoom) {
+                    Text("0.5x")
+                        .tag(1.0)
+                    Text("1.0x")
+                        .tag(2.0)
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
             }else{
                 Text("Using front camera")
             }
@@ -93,6 +103,7 @@ struct ModalScannerView: View {
             CBScanner(
                 supportBarcode: .constant([.qr, .code128]),
                 torchLightIsOn: $torchIsOn,
+                zoom:$zoom,
                 cameraPosition: $cameraPosition,
                 mockBarCode: .constant(BarcodeData(value:"My Test Data", type: .qr))
             ){
