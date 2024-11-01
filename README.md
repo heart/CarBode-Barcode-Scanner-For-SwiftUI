@@ -1,8 +1,6 @@
 ![CarBode](https://raw.githubusercontent.com/heart/CarBode-Barcode-Scanner-For-SwiftUI/master/logo/logo.png)
 
-<img src="./logo/coffee.png" height="100">
-
-[Buy me a coffee.](#donate-to-support-this-project)
+"The name CarBode is a playful twist on the word Barcode. It’s a Thai wordplay technique, where syllables are reversed to create a new, catchy name. This adds a touch of humor and a unique Thai flair that makes the project memorable."
 
 ---
 
