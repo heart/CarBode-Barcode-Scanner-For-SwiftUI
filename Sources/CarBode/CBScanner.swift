@@ -88,12 +88,13 @@ public struct CBScanner: UIViewRepresentable {
 
         if isActive {
             if !(uiView.session?.isRunning ?? false) {
-                uiView.session?.startRunning()
+                DispatchQueue.global().async {
+                    uiView.session?.startRunning()
+                }
             }
             uiView.updateCameraView()
         } else {
             uiView.session?.stopRunning()
         }
     }
-
 }
