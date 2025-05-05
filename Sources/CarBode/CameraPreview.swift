@@ -129,18 +129,12 @@ public class CameraPreview: UIView,ObservableObject {
     }
     
     func setTorchLight(isOn: Bool) {
-        
-        if torchLightIsOn == isOn { return }
-        
-        torchLightIsOn = isOn
         if let camera = selectedCamera {
             if camera.hasTorch {
+                if isOn == (camera.torchMode == .on) { return }
+
                 try? camera.lockForConfiguration()
-                if isOn {
-                    camera.torchMode = .on
-                } else {
-                    camera.torchMode = .off
-                }
+                camera.torchMode = isOn ? .on : .off
                 camera.unlockForConfiguration()
             }
         }
@@ -207,6 +201,9 @@ public class CameraPreview: UIView,ObservableObject {
                         self.previewLayer = previewLayer
                         self.updateCameraView()
                         self.zoom(to: self.currentZoom)
+                        if self.torchLightIsOn {
+                            self.setTorchLight(isOn: true)
+                        }
                     }
                 }
                 
