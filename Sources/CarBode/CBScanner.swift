@@ -68,6 +68,7 @@ public struct CBScanner: UIViewRepresentable {
         view.onFound = onFound
         view.onDraw = onDraw
         view.mockBarCode = mockBarCode
+        view.torchLightIsOn = torchLightIsOn
         return view
     }
 
@@ -77,7 +78,9 @@ public struct CBScanner: UIViewRepresentable {
 
     public func updateUIView(_ uiView: CameraPreview, context: UIViewRepresentableContext<CBScanner>) {
 
-        uiView.setTorchLight(isOn: torchLightIsOn)
+        if uiView.session?.isRunning == true && uiView.selectedCamera != nil {
+            uiView.setTorchLight(isOn: torchLightIsOn)
+        }
         uiView.zoom(to: zoom)
         uiView.setCamera(position: cameraPosition)
         uiView.scanInterval = scanInterval
